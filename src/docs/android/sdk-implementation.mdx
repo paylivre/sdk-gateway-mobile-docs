@@ -1,0 +1,62 @@
+---
+title: SDK Implementation
+description: Step by step for the installation.
+---
+
+import QuickImplementationImage from "../../assets/QuickImplementationImage.js";
+
+For a quick view (demo) of Paylivre's SDK Gateway, please refer to the [Quick implementation](#quick-implementation) section.<br/>
+To properly implement Paylivre's SDK Gateway checkout the [Chose your checkout method](#chose-your-checkout-method) section.
+
+## Quick implementation
+
+To enable your team to quick implement and test our SDK solution, follow the steps below.
+
+### Step 1 - Import
+
+In your `MainActivity.kt` file, start by importing the `StartCheckoutByURL` method, as follows:
+
+```kotlin title=./java/MainActivity.kt lineNumbers=true highlight={2}
+// ...other imports
+import com.paylivre.sdk.gateway.android.StartCheckoutByURL
+
+```
+
+### Step 2 - Instantiating and running the method
+
+At your `MainActivity.kt` file, inside your `onCreate` function, lets:
+
+- used a mocked generated URL for testing (line 6);
+- Create a new function to build the `StartCheckoutByURL` (line 8 through 11);
+- .... (at line 13);
+- Finally, run the method (at line 15).
+
+```kotlin title=./java/MainActivity.kt lineNumbers=true
+class MainActivity : AppCompatActivity() {
+  override fun onCreate(savedInstanceState: Bundle?) {
+    // ...other
+
+    // mocked generated URL for testing
+    val generatedUrl = "https://dev.gateway.paylivre.com?merchant_transaction_id=a47fc29a7b&merchant_id=302&operation=0&email=user_gateway_test@tutanota.com&document_number=61317581075&amount=500&currency=BRL&type=15&account_id=123654asd&callback_url=https://www.google.com&redirect_url=https://www.merchant_to_you.com&auto_approve=1&signature=JGFyZ29uMmkkdj0xOSRtPTE2LHQ9MixwPTEkWVdRNU5XWTVaR1UyT1RnNE5ETSRKYWlvWmRwc3J1L3cyQlJzVlBzd25B&logo_url=https://github.com/paylivre/gateway-example-react-js/blob/master/assets/logo_jackpot_new.png?raw=true"
+    // new function declared
+    fun startCheckoutByUrl() {
+      val checkout = StartCheckoutByURL.Builder(
+          url = generatedUrl,
+      ).build()
+
+      checkout.startPayment(this) // ....
+    }
+    startCheckoutByUrl() //  run the method
+  }
+}
+
+```
+
+Done! As a result of the implementation above, you will get to the following screen:
+
+<QuickImplementationImage />
+
+## Chose your checkout method
+
+For a more customized experience, Paylivre offers two different checkout methods.<br/>
+To learn detailed information about them, access: (a) [StartCheckoutByURL](/android/start-checkout-by-url) and (b) [StartCheckout](/android/start-checkout).

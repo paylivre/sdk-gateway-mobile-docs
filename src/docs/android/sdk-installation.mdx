@@ -1,0 +1,64 @@
+---
+title: SDK Installation
+description: Step by step for the installation.
+---
+
+To properly install Paylivre's SDK Gateway follow the steps below.
+
+## Step 1 - Add dependencies
+
+We recommend using Android Studio as an IDE and Gradle to manage dependencies.<br/>
+In this step, you will need to add 2 dependencies: (a) jitpack\*; and (b) our implementation.<br /> \* For the jitpack, depending on your project organization, you will have 2 different
+scenarios (both shown below).
+
+### Dependency (A): jitpack - Scenario A (newer projects)
+
+- To your root `build.gradle` at the end of repositories, please add the following dependencies:
+
+```groovy title=./build.gradle lineNumbers=true highlight={5}
+// ... other configs
+allprojects {
+    repositories {
+      // ... other repositories
+      maven { url 'https://jitpack.io' }
+    }
+}
+```
+
+### Dependency (A): jitpack - Scenario B (older projects)
+
+- To your root `build.gradle` at the end of dependencyResolutionManagement-repositories, please add the following dependencies:
+
+```groovy title=./build.gradle lineNumbers=true highlight={6}
+// ... other configs
+dependencyResolutionManagement {
+  // ... other dependencies
+  repositories {
+    // ... other repositories
+    maven { url 'https://jitpack.io' }
+  }
+}
+
+```
+
+### Dependency (B): Our implementation
+
+- For the chosen packages (example - 'app'), open the `build.gradle` and please add the following implementation:
+
+```groovy title=./app/build.gradle lineNumbers=true highlight={4}
+// ... other configs
+dependencies {
+  // ... other dependencies
+  implementation 'com.github.neijrdev:sdk-gateway-android:1.0.1'
+}
+```
+
+## Step 2 - Add permissions
+
+Add INTERNET and ACCESS_NETWORK_STATE permissions to your `AndroidManifest.xml` file.
+
+```xml title=./AndroidManifest.xml lineNumbers=true highlight={2-3}
+<!-- other permissions -->
+<uses-permission android:name="android.permission.INTERNET" />
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+```

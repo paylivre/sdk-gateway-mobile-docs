@@ -7,6 +7,7 @@ import Prism from "prism-react-renderer/prism";
 
 require("prismjs/components/prism-kotlin");
 require("prismjs/components/prism-java");
+require("prismjs/components/prism-groovy");
 
 const components = {
   pre: (props) => {
