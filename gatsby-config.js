@@ -3,7 +3,7 @@ module.exports = {
     siteTitle: `Paylivre SDK Gateway Mobile Docs`,
     defaultTitle: `Paylivre SDK Gateway Mobile Docs`,
     siteTitleShort: `Documentation SDK Gateway`,
-    siteDescription: `This is a POC to test the gatsby-rocketDocs framework for documenting`,
+    siteDescription: `This is the documentation for the Paylivre SDK Gateway Mobile.`,
     siteUrl: `https://paylivre-documentation-sdk.com`,
     siteAuthor: `paylivre`,
     siteImage: `/banner.png`,
@@ -44,10 +44,10 @@ module.exports = {
     {
       resolve: `gatsby-plugin-canonical-urls`,
       options: {
-        siteUrl: `https://rocketdocs.netlify.app`,
+        siteUrl: `https://paylivre.github.io/sdk-gateway-mobile-docs`,
       },
     },
     `gatsby-plugin-offline`,
   ],
-  pathPrefix: "/paylivre-poc-rocketDocs",
+  pathPrefix: "/sdk-gateway-mobile-docs",
 };
