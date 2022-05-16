@@ -1,6 +1,6 @@
 ---
 title: Languages
-description: learn more about the supported languages and how to implement them.
+description: Learn more about the supported languages and how to implement them.
 ---
 
 Laguage is an extra addon config for the Paylivre's SDK Gateway. <br/>
@@ -17,13 +17,17 @@ If not supported, the default language will always be english (en-EN).
 
 ## Implementation
 
-Inside the ... use the `setLanguage()` method passing the correct code string.
+Inside the function (either: [startCheckoutByUrl](/android/start-checkout-by-params) or [startCheckoutByParams](/android/start-checkout-by-url)) that instatiates the chosen checkout class
+(either: [StartCheckoutByParams](/android/start-checkout-by-params) or [StartCheckoutByUrl](/android/start-checkout-by-url))
+use the `setLanguage()` method prior to the `startPayment()` passing the desired language code string. That's it.
 
-```kotlin title=./java/MainActivity.kt lineNumbers=true highlight={3}
+```kotlin title=./java/MainActivity.kt lineNumbers=true highlight={4}
 fun startCheckoutByUrl() { // or startCheckoutByParams
     val checkout = // ... instatiate it as presented before
+
     checkout.setLanguage("en-EN")
-    checkout.startPayment(this)
+
+    checkout.startPayment(this) // method that initializes the SDK
 }
 
 ```

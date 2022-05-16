@@ -8,7 +8,7 @@ export default function QuickImplementationImage(props) {
       src={quickImplementationImage}
       alt="Quick Implementation Result Image"
       style={{
-        width: 240,
+        width: 320,
         display: "block",
         marginLeft: "auto",
         marginRight: "auto",

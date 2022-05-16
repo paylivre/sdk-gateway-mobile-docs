@@ -27,10 +27,10 @@ description: SDK Gateway Mobile Parameters.
 | pix_key                 | No       | String | Only necessary for Withdrawal Pix                                                                                                                                                                                 |
 
 ```kotlin title=./java/MainActivity.kt lineNumbers=true
-StartCheckout.Builder(
+StartCheckoutByParams.Builder(
     merchant_id = 302,
     gateway_token = "NHsuzedl6omTPvoxc0p7gVXc7Xthhf6Y",
-    operation = 0, // 0 deposit OR 5 withdrawl
+    operation = 0, // 0 deposit OR 5 withdrawal
     merchant_transaction_id = "Okosdksod230",
     amount = 500,
     currency = "USD", // Suportted: BRL or USD

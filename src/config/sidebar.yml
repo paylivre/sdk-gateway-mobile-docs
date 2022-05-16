@@ -14,8 +14,8 @@
       link: "/android/sdk-implementation"
     - label: "StartCheckoutByURL"
       link: "/android/start-checkout-by-url"
-    - label: "StartCheckout"
-      link: "/android/start-checkout"
+    - label: "StartCheckoutByParams"
+      link: "/android/start-checkout-by-params"
 - label: iOS
   items:
     - label: "TODO"

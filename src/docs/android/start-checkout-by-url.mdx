@@ -3,7 +3,7 @@ title: StartCheckoutByURL
 description: Learn how to properly implement the StartCheckoutByURL class.
 ---
 
-Implementing with `StartCheckoutByURL` class consists in a quick possibility for your merchant to integrate with Paylivre's SDK Gateway, when you desire to generate the URL by yourself.<br/>
+Implementing with `StartCheckoutByURL` class consists in a quick possibility for the merchant to integrate with Paylivre's SDK Gateway, when it desires to generate the URL by yourself.<br/>
 In your app, you can invoke our SDK at any given momment, being at the `Activity` or at any given `fragment`.<br/> The examples in this section below will occour at the `MainActivity.kt`.
 
 ## Implementation
@@ -13,9 +13,16 @@ StartCheckoutByURL's `Builder()`, only accepts two parameters:
 - <u>request_code</u>: Optional Parameter. It is used to idenfity the return of
   SDK_GATEWAY_PAYLIVRE_ACTIVITY_REQUEST_CODE;
 - <u>url</u>: Required. A string in the correct and valid format accepted by our
-  Gateway API (<a target="_blank" href="https://docs.google.com/document/d/1KAibQ0TOdSpNnQY_J6Ogl9zFqYPEcDFtHIi5RKBCZts/edit#heading=h.rz52pzduytmi">learn more</a>).
+  Gateway API (
+  <a
+    target="_blank"
+    href="https://docs.google.com/document/d/1KAibQ0TOdSpNnQY_J6Ogl9zFqYPEcDFtHIi5RKBCZts/edit#heading=h.rz52pzduytmi"
+  >
+    learn more
+  </a>
+  ).
 
-Finally, we recomend you instatiating the `StartCheckoutByURL` class inside of a new function (lines 8 through 18), as follows:
+Finally, we recommend you instatiating the `StartCheckoutByURL` class inside of a new function called `startCheckoutByUrl` (lines 8 through 18), as follows:
 
 ```kotlin title=./java/MainActivity.kt lineNumbers=true highlight={8-18}
 class MainActivity : AppCompatActivity() {

@@ -1,10 +1,65 @@
 ---
 title: Activity result
-description: TODO.
+description: Learn more about the activity result and how to implement it.
 ---
 
-...
+Activity result is an extra addon config for the Paylivre's SDK Gateway. <br/>
+If the Activity result is not implemented, Paylivre's SDK Gateway will run as expected, but, once it is done, it will not return any parameter or activity to your app.<br />
+Thus, if the merchant need/want to receive any data from the transaction after the closure of Paylivre's SDK, it will need
+to do the following implementation:
 
-## TODO
+## Implementation
 
-...
+### Step 1: declaring checkoutRegisterForResult funciton
+
+First, we need to declare a function that will be used as an argument later ([Step-2](#step-2-invoking-the-method)).
+We suggest to name it as `checkoutRegisterForResult`.
+
+```kotlin title=./java/MainActivity.kt lineNumbers=true
+// Get params result from Paylivre's SDK Gateway
+val checkoutRegisterForResult =
+    registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result: ActivityResult ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val data = result.data
+            val selectedType = data!!.getIntExtra("selected_type", -1)
+            val isGeneratedTransaction = data!!.getIntExtra("is_generated_transaction", -1)
+            val isErrorTransaction = data!!.getIntExtra("is_error_transaction", -1)
+            val errorTransactionCode = data!!.getStringExtra("error_transaction_code")
+            val errorTransactionMessage = data!!.getStringExtra("error_transaction_message")
+            val transactionStatusId = data!!.getIntExtra("transaction_status_id", -1)
+            val depositStatusId = data!!.getIntExtra("deposit_status_id", -1)
+            val depositId = data!!.getIntExtra("deposit_id", -1)
+            val transactionId = data!!.getIntExtra("transaction_id", -1)
+            val orderId = data!!.getIntExtra("order_id", -1)
+            val isUserCompletedTransaction = data!!
+                .getIntExtra("is_user_completed_transaction", -1)
+            val actionNotCompletedCode = data!!
+                .getStringExtra("action_not_completed_code")
+            val actionNotCompletedMessage = data!!
+                .getStringExtra("action_not_completed_message")
+            val errorCompletedTransactionMessage = data!!
+                .getStringExtra("error_completed_transaction_message")
+        }
+    }
+```
+
+As presented above, the `result.data` object has a lot of 'extra' data that the SDK may return to the Activity that has instatiated it.
+
+### Step 2: invoking the method
+
+Finally, inside the function (either: [startCheckoutByUrl](/android/start-checkout-by-params) or [startCheckoutByParams](/android/start-checkout-by-url)) that instatiates the chosen checkout class
+(either: [StartCheckoutByParams](/android/start-checkout-by-params) or [StartCheckoutByUrl](/android/start-checkout-by-url))
+use the `setRegisterForResult()` method prior to the `startPayment()` passing as an argument the [previously](#step-1-declaring-checkoutregisterforresult-funciton) declared function, the `checkoutRegisterForResult`.
+
+```kotlin title=./java/MainActivity.kt lineNumbers=true highlight={5}
+fun startCheckoutByUrl() { // or startCheckoutByParams
+    val checkout = // ... instatiate it as presented before
+
+    // Register callback for activity result
+    checkout.setRegisterForResult(checkoutRegisterForResult)
+
+    checkout.startPayment(this) // method that initializes the SDK
+}
+```

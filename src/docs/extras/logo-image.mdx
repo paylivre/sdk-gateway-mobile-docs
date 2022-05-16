@@ -1,14 +1,29 @@
 ---
 title: Merchant Logo Image
-description: TODO.
+description: Learn more about how to personalize the logo image.
 ---
 
-...
-
-## TODO
-
-...
+Importing your Merchant Logo Image is an extra addon config for the Paylivre's SDK Gateway. <br/>
+If no image is provided, Paylivre's SDK Gateway will, by default, present Paylivre's logo.
 
 ## Suggested Logo Size
 
-...
+TODO...
+
+## Implementation
+
+Inside the function (either: [startCheckoutByUrl](/android/start-checkout-by-params) or [startCheckoutByParams](/android/start-checkout-by-url)) that instatiates the chosen checkout class
+(either: [StartCheckoutByParams](/android/start-checkout-by-params) or [StartCheckoutByUrl](/android/start-checkout-by-url))
+use the `setLogoResId()` method prior to the `startPayment()` passing the desired image. That's it.
+
+```kotlin title=./java/MainActivity.kt lineNumbers=true highlight={4-5}
+fun startCheckoutByUrl() { // or startCheckoutByParams
+    val checkout = // ... instatiate it as presented before
+
+    val MERCHANT_LOGO_RES_ID: Int = R.drawable.logo_merchant // loading from a given file
+    checkout.setLogoResId(MERCHANT_LOGO_RES_ID)
+
+    checkout.startPayment(this) // method that initializes the SDK
+}
+
+```
