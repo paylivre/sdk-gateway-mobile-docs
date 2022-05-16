@@ -11,7 +11,7 @@ We recommend using Android Studio as an IDE and Gradle to manage dependencies.<b
 In this step, you will need to add 2 dependencies: (a) jitpack\*; and (b) our implementation.<br /> \* For the jitpack, depending on your project organization, you will have 2 different
 scenarios (both shown below).
 
-### Dependency (A): jitpack - Scenario A (newer projects)
+### Dependency (A): jitpack - Scenario A (older projects)
 
 - To your root `build.gradle` at the end of repositories, please add the following dependencies:
 
@@ -25,9 +25,9 @@ allprojects {
 }
 ```
 
-### Dependency (A): jitpack - Scenario B (older projects)
+### Dependency (A): jitpack - Scenario B (newer projects)
 
-- To your root `build.gradle` at the end of dependencyResolutionManagement-repositories, please add the following dependencies:
+- To your root `settings.gradle` inside of `dependencyResolutionManagement` > `repositories`, please add the following dependencies:
 
 ```groovy title=./build.gradle lineNumbers=true highlight={6}
 // ... other configs
@@ -43,7 +43,7 @@ dependencyResolutionManagement {
 
 ### Dependency (B): Our implementation
 
-- For the chosen packages (example - 'app'), open the `build.gradle` and please add the following implementation:
+- For the packages that you chose to implement Paylivre's SDK Gateway (example - 'app'), open the `build.gradle` and add the following implementation:
 
 ```groovy title=./app/build.gradle lineNumbers=true highlight={4}
 // ... other configs

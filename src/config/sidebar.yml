@@ -20,10 +20,14 @@
   items:
     - label: "TODO"
       link: "/ios/todo"
-- label: Optionals
+- label: Extras
   items:
     - label: "Languages"
-      link: "/optionals/language"
+      link: "/extras/language"
+    - label: "Merchant Logo Image"
+      link: "/extras/logo-image"
+    - label: "Activity result"
+      link: "/extras/activity-result"
 - label: More
   items:
     - label: Paylivre

@@ -14,7 +14,7 @@ To enable your team to quick implement and test our SDK solution, follow the ste
 
 ### Step 1 - Import
 
-In your `MainActivity.kt` file, start by importing the `StartCheckoutByURL` method, as follows:
+In your `MainActivity.kt` file, start by importing the `StartCheckoutByURL` class, as follows:
 
 ```kotlin title=./java/MainActivity.kt lineNumbers=true highlight={2}
 // ...other imports
@@ -22,16 +22,16 @@ import com.paylivre.sdk.gateway.android.StartCheckoutByURL
 
 ```
 
-### Step 2 - Instantiating and running the method
+### Step 2 - Instantiating and running the class
 
 At your `MainActivity.kt` file, inside your `onCreate` function, lets:
 
-- used a mocked generated URL for testing (line 6);
-- Create a new function to build the `StartCheckoutByURL` (line 8 through 11);
-- .... (at line 13);
-- Finally, run the method (at line 15).
+- use a mocked generated URL for testing (line 6);
+- Create a new function to instantiate the class `StartCheckoutByURL` and then build it (line 8 through 11);
+- method that initializes the SDK (at line 13);
+- Finally, run the function (at line 15).
 
-```kotlin title=./java/MainActivity.kt lineNumbers=true
+```kotlin title=./java/MainActivity.kt lineNumbers=true highlight={6,8-11,13,15}
 class MainActivity : AppCompatActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     // ...other
@@ -44,9 +44,9 @@ class MainActivity : AppCompatActivity() {
           url = generatedUrl,
       ).build()
 
-      checkout.startPayment(this) // ....
+      checkout.startPayment(this) // method that initializes the SDK
     }
-    startCheckoutByUrl() //  run the method
+    startCheckoutByUrl() //  run the function
   }
 }
 

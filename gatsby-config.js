@@ -4,7 +4,7 @@ module.exports = {
     defaultTitle: `Paylivre SDK Gateway Mobile Docs`,
     siteTitleShort: `Documentation SDK Gateway`,
     siteDescription: `This is the documentation for the Paylivre SDK Gateway Mobile.`,
-    siteUrl: `https://paylivre-documentation-sdk.com`,
+    siteUrl: `https://paylivre.github.io/sdk-gateway-mobile-docs/`,
     siteAuthor: `paylivre`,
     siteImage: `/banner.png`,
     siteLanguage: `en`,
