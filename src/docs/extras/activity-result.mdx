@@ -3,6 +3,8 @@ title: Activity result
 description: Learn more about the activity result and how to implement it.
 ---
 
+import { Link } from "gatsby";
+
 Activity result is an extra addon config for the Paylivre's SDK Gateway. <br/>
 If the Activity result is not implemented, Paylivre's SDK Gateway will run as expected, but, once it is done, it will not return any parameter or activity to your app.<br />
 Thus, if the merchant need/want to receive any data from the transaction after the closure of Paylivre's SDK, it will need
@@ -10,57 +12,180 @@ to do the following implementation:
 
 ## Implementation
 
-### Step 1: declaring checkoutRegisterForResult funciton
+In this section it is presented one implementation option for kotlin projects and two different implementations for java projects.
 
-First, it is needed to declare a function that will be used as an argument later ([Step 2](#step-2-invoking-the-method)).
-We suggest to name it as `checkoutRegisterForResult`.
+### kotlin
 
-```kotlin title=./java/MainActivity.kt lineNumbers=true
-// Get params result from Paylivre's SDK Gateway
-val checkoutRegisterForResult =
-    registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()
-    ) { result: ActivityResult ->
-        if (result.resultCode == Activity.RESULT_OK) {
-            val data = result.data
-            val selectedType = data!!.getIntExtra("selected_type", -1)
-            val isGeneratedTransaction = data!!.getIntExtra("is_generated_transaction", -1)
-            val isErrorTransaction = data!!.getIntExtra("is_error_transaction", -1)
-            val errorTransactionCode = data!!.getStringExtra("error_transaction_code")
-            val errorTransactionMessage = data!!.getStringExtra("error_transaction_message")
-            val transactionStatusId = data!!.getIntExtra("transaction_status_id", -1)
-            val depositStatusId = data!!.getIntExtra("deposit_status_id", -1)
-            val depositId = data!!.getIntExtra("deposit_id", -1)
-            val transactionId = data!!.getIntExtra("transaction_id", -1)
-            val orderId = data!!.getIntExtra("order_id", -1)
-            val isUserCompletedTransaction = data!!
-                .getIntExtra("is_user_completed_transaction", -1)
-            val actionNotCompletedCode = data!!
-                .getStringExtra("action_not_completed_code")
-            val actionNotCompletedMessage = data!!
-                .getStringExtra("action_not_completed_message")
-            val errorCompletedTransactionMessage = data!!
-                .getStringExtra("error_completed_transaction_message")
+First, it is needed to declare a function that will be used as an argument later. We suggest to name it as `checkoutRegisterForResult` (lines 6 through 31).
+
+Finally, inside the function `startCheckoutByUrl` (or `startCheckoutByParams`) that instantiates the chosen checkout class <Link to="/android/start-checkout-by-url">StartCheckoutByUrl</Link>
+(or <Link to="/android/start-checkout-by-params">StartCheckoutByParams</Link>)
+use the `setRegisterForResult()` method prior to the `startPayment()` passing as an argument the declared function, `checkoutRegisterForResult` (line 37).
+
+```kotlin title=./java/MainActivity.kt lineNumbers=true highlight={6-31,37}
+class MainActivity : AppCompatActivity() {
+  override fun onCreate(savedInstanceState: Bundle?) {
+        // ...other
+
+        // Get params result from Paylivre's SDK Gateway
+        val checkoutRegisterForResult =
+            registerForActivityResult(
+                ActivityResultContracts.StartActivityForResult()
+            ) { result: ActivityResult ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    val data = result.data
+                    val selectedType = data!!.getIntExtra("selected_type", -1)
+                    val isGeneratedTransaction = data!!.getIntExtra("is_generated_transaction", -1)
+                    val isErrorTransaction = data!!.getIntExtra("is_error_transaction", -1)
+                    val errorTransactionCode = data!!.getStringExtra("error_transaction_code")
+                    val errorTransactionMessage = data!!.getStringExtra("error_transaction_message")
+                    val transactionStatusId = data!!.getIntExtra("transaction_status_id", -1)
+                    val depositStatusId = data!!.getIntExtra("deposit_status_id", -1)
+                    val depositId = data!!.getIntExtra("deposit_id", -1)
+                    val transactionId = data!!.getIntExtra("transaction_id", -1)
+                    val orderId = data!!.getIntExtra("order_id", -1)
+                    val isUserCompletedTransaction = data!!
+                        .getIntExtra("is_user_completed_transaction", -1)
+                    val actionNotCompletedCode = data!!
+                        .getStringExtra("action_not_completed_code")
+                    val actionNotCompletedMessage = data!!
+                        .getStringExtra("action_not_completed_message")
+                    val errorCompletedTransactionMessage = data!!
+                        .getStringExtra("error_completed_transaction_message")
+                }
+            }
+
+        fun startCheckoutByUrl() { // or startCheckoutByParams
+            val checkout = // ... instantiate it as presented before
+
+            // Register callback for activity result
+            checkout.setRegisterForResult(checkoutRegisterForResult)
+
+            // method that initializes the SDK
+            checkout.startPayment(this)
         }
+        startCheckoutByUrl() //  run the function
     }
-```
-
-As presented above, the `result.data` object has a lot of 'extra' data that the SDK may return to the Activity that has instatiated it.
-
-### Step 2: invoking the method
-
-Finally, inside the function (either: [startCheckoutByUrl](/android/start-checkout-by-params) or [startCheckoutByParams](/android/start-checkout-by-url)) that instatiates the chosen checkout class
-(either: [StartCheckoutByParams](/android/start-checkout-by-params) or [StartCheckoutByUrl](/android/start-checkout-by-url))
-use the `setRegisterForResult()` method prior to the `startPayment()` passing as an argument the [previously](#step-1-declaring-checkoutregisterforresult-funciton) declared function, the `checkoutRegisterForResult`.
-
-```kotlin title=./java/MainActivity.kt lineNumbers=true highlight={5}
-fun startCheckoutByUrl() { // or startCheckoutByParams
-    val checkout = // ... instatiate it as presented before
-
-    // Register callback for activity result
-    checkout.setRegisterForResult(checkoutRegisterForResult)
-
-    // method that initializes the SDK
-    checkout.startPayment(this)
 }
 ```
+
+### java - alternative 1 - declaring the checkoutRegisterForResult function
+
+For java implementation, this first alternative can be done by declaring a function that will be used as an argument later. We suggest to name it as `checkoutRegisterForResult` (lines 5 through 28).
+
+Finally, inside the function `startCheckoutByUrl` (or `startCheckoutByParams`) that instantiates the chosen checkout class <Link to="/android/start-checkout-by-url">StartCheckoutByUrl</Link>
+(or <Link to="/android/start-checkout-by-params">StartCheckoutByParams</Link>)
+use the `setRegisterForResult()` method prior to the `startPayment()` passing as an argument the declared function, `checkoutRegisterForResult` (line 34).
+
+```java title=./java/MainActivity.java lineNumbers=true  highlight={5-28,34}
+public class MainActivity extends AppCompatActivity {
+    // ... other
+
+    // Get params result from Paylivre's SDK Gateway
+    ActivityResultLauncher<Intent> checkoutRegisterForResult = registerForActivityResult(
+        new ActivityResultContracts.StartActivityForResult(),
+        result -> {
+            if (result.getResultCode() == Activity.RESULT_OK) {
+                Intent data = result.getData();
+                if (data != null) {
+                    Integer selectedType = data.getIntExtra("selected_type", -1);
+                    Integer isGeneratedTransaction = data.getIntExtra("is_generated_transaction", -1);
+                    Integer isErrorTransaction = data.getIntExtra("is_error_transaction", -1);
+                    Integer transactionStatusId = data.getIntExtra("transaction_status_id", -1);
+                    Integer depositStatusId = data.getIntExtra("deposit_status_id", -1);
+                    Integer depositId = data.getIntExtra("deposit_id", -1);
+                    Integer transactionId = data.getIntExtra("transaction_id", -1);
+                    Integer orderId = data.getIntExtra("order_id", -1);
+                    Integer isUserCompletedTransaction = data.getIntExtra("is_user_completed_transaction", -1);
+                    String errorTransactionCode = data.getStringExtra("error_transaction_code");
+                    String errorTransactionMessage = data.getStringExtra("error_transaction_message");
+                    String actionNotCompletedCode = data.getStringExtra("action_not_completed_code");
+                    String actionNotCompletedMessage = data.getStringExtra("action_not_completed_message");
+                    String errorCompletedTransactionMessage = data.getStringExtra(
+                            "error_completed_transaction_message");
+                }
+            }
+        });
+
+    void startCheckoutByUrl(Integer requestCode, String url) {
+        StartCheckoutByURL checkout = // ... instantiate it as presented before
+
+        // Register callback for activity result
+        checkout.setRegisterForResult(checkoutRegisterForResult);
+
+        // method that initializes the SDK
+        checkout.startPayment(this);
+    }
+
+    protected void onCreate(Bundle savedInstanceState) {
+        // ...other
+        String generatedUrl ""; // enter your generated URL here (as a string)
+
+        startCheckoutByUrl(null, generatedUrl); // run the function
+    }
+}
+```
+
+Please note that the `requestCode` parameter in the `startCheckoutByUrl()` function will not be used, thus, it is possible to pass `null`, just as it was done at line 44 `startCheckoutByUrl(null, generatedUrl)`.
+
+### java - alternative 2 - Overriding 'onActivityResult'
+
+For java implementation, besides declaring the `checkoutRegisterForResult` function just like it is done in [alternative 1](#java---alternative-1---declaring-the-checkoutregisterforresult-function), we can, alternatively, override the onActivityResult native method to obtain the same goal. Just follow:<br />
+
+- Declare a variable `SDK_GATEWAY_PAYLIVRE_ACTIVITY_REQUEST_CODE` with an integer to identify paylivre's SDK Activity (line 5);
+- Declare the override function for the `onActivityResult` as presented below (lines 22 through 46);
+- Thanks to the native method `onActivityResult`'s nature, it is not requrired to run any method inside the `startCheckoutByUrl` function to invoke it.
+
+```java title=./java/MainActivity.java lineNumbers=true highlight={5,22-46}
+public class MainActivity extends AppCompatActivity {
+    // ... other
+
+    // use an integer to identify paylivre's SDK Activity
+    Integer SDK_GATEWAY_PAYLIVRE_ACTIVITY_REQUEST_CODE = 0;
+
+    void startCheckoutByUrl(Integer requestCode, String url) {
+        StartCheckoutByURL checkout = // ... instantiate it as presented before
+
+        // method that initializes the SDK
+        checkout.startPayment(this);
+    }
+
+    protected void onCreate(Bundle savedInstanceState) {
+        // ...other
+        String generatedUrl ""; // enter your generated URL here (as a string)
+
+        startCheckoutByUrl(SDK_GATEWAY_PAYLIVRE_ACTIVITY_REQUEST_CODE, generatedUrl); // run the function
+    }
+
+    // Get params result from Paylivre's SDK Gateway
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == SDK_GATEWAY_PAYLIVRE_ACTIVITY_REQUEST_CODE) {
+            if (resultCode == Activity.RESULT_OK) {
+                if (data != null) {
+                    Integer selectedType = data.getIntExtra("selected_type", -1);
+                    Integer isGeneratedTransaction = data.getIntExtra("is_generated_transaction", -1);
+                    Integer isErrorTransaction = data.getIntExtra("is_error_transaction", -1);
+                    Integer transactionStatusId = data.getIntExtra("transaction_status_id", -1);
+                    Integer depositStatusId = data.getIntExtra("deposit_status_id", -1);
+                    Integer depositId = data.getIntExtra("deposit_id", -1);
+                    Integer transactionId = data.getIntExtra("transaction_id", -1);
+                    Integer orderId = data.getIntExtra("order_id", -1);
+                    Integer isUserCompletedTransaction = data.getIntExtra("is_user_completed_transaction", -1);
+                    String errorTransactionCode = data.getStringExtra("error_transaction_code");
+                    String errorTransactionMessage = data.getStringExtra("error_transaction_message");
+                    String actionNotCompletedCode = data.getStringExtra("action_not_completed_code");
+                    String actionNotCompletedMessage = data.getStringExtra("action_not_completed_message");
+                    String errorCompletedTransactionMessage = data.getStringExtra(
+                            "error_completed_transaction_message");
+                }
+            }
+        }
+    }
+}
+```
+
+## Result
+
+As presented above, the `data` object has a lot of 'extra' data that the SDK may return to the Activity that has instantiated it.

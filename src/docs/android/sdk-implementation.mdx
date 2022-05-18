@@ -3,6 +3,7 @@ title: SDK Implementation
 description: Step by step for the installation.
 ---
 
+import { Link } from "gatsby";
 import QuickImplementationImage from "../../assets/QuickImplementationImage.js";
 
 For a quick view (demo) of Paylivre's SDK Gateway, please refer to the [Quick implementation](#quick-implementation) section.<br/>
@@ -29,7 +30,7 @@ import com.paylivre.sdk.gateway.android.StartCheckoutByURL
 
 At your `MainActivity.kt` file, inside the `onCreate` function, lets:
 
-- Instatiate a mocked generated URL for testing (line 6);
+- instantiate a mocked generated URL for testing (line 6);
 - Create a new function to instantiate the class `StartCheckoutByURL` and then build it (line 8 through 11);
 - Method that initializes the SDK (at line 13);
 - Finally, run the function (at line 15).
@@ -61,7 +62,7 @@ At your `MainActivity.java` file, lets:
 
 - Create a new function to instantiate the class `StartCheckoutByURL` and then build it (line 5);
 - Method that initializes the SDK (at line 7);
-- Inside the `onCreate` function, instatiate a mocked generated URL for testing (line 13);
+- Inside the `onCreate` function, instantiate a mocked generated URL for testing (line 13);
 - Set a integer value to a `SDK_GATEWAY_PAYLIVRE_ACTIVITY_REQUEST_CODE` variable (line 16);
 - Finally, run the function (at line 18) with the two arguments.
 
@@ -96,4 +97,4 @@ Done! As a result of the implementation presented above, you will get to the fol
 ## Chose your checkout method
 
 For a more customized and complete experience, Paylivre offers two different checkout methods.<br/>
-To learn detailed information about them, access: (a) [StartCheckoutByURL](/android/start-checkout-by-url) and (b) [StartCheckoutByParams](/android/start-checkout-by-params).
+To learn detailed information about them, access: (a) <Link to="/android/start-checkout-by-url">StartCheckoutByURL</Link> and (b) <Link to="/android/start-checkout-by-params">StartCheckoutByParams</Link>.

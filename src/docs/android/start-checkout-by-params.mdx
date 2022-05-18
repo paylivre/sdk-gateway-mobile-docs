@@ -3,14 +3,15 @@ title: StartCheckoutByParams
 description: Learn how to properly implement the StartCheckoutByParams class.
 ---
 
+import { Link } from "gatsby";
 import CheckoutByParamsImage from "../../assets/CheckoutByParamsImage.js";
 
-Implementing with `StartCheckoutByParams` class consists as the alternative to the [StartCheckoutByURL](/android/start-checkout-by-url) for the merchant to integrate with Paylivre's SDK Gateway. It is suggested when the merchant do not want to handle the generation of the URL by itself, thus, it is required to provide the parameters.<br/>
+Implementing with `StartCheckoutByParams` class consists as the alternative to the <Link to="/android/start-checkout-by-url">StartCheckoutByURL</Link> for the merchant to integrate with Paylivre's SDK Gateway. It is suggested when the merchant do not want to handle the generation of the URL by itself, thus, it is required to provide the parameters.<br/>
 In your app, you can invoke our SDK at any given momment, being at the `Activity` or at any given `fragment`.<br/> The examples in this section below will occour at the `MainActivity.kt`.
 
 ## Implementation
 
-StartCheckoutByParams's `Builder()`, accepts all the [parameters listed in the BASICS-Parameters](/basics/parameters) section.
+StartCheckoutByParams's `Builder()`, accepts all the <Link to="/basics/parameters">parameters listed in the BASICS-Parameters</Link> section.
 
 We recommend you instatiating the `StartCheckoutByParams` class inside of a new function called `startCheckoutByParams`, as follows:
 
@@ -105,9 +106,9 @@ As a result of the implementation above, you will get to the following screen:
 
 As extra addons, Paylivre's SDK Gateway Mobile offers three possibilities, through three different methods:
 
-- Define a [language\*](/extras/language) using the `setLanguage()` method;
-- Define your [merchant's logo image from a file\*](/extras/logo-image) using the `setLogoResId()` method;
-- Register callback for [activity result\*](/extras/activity-result) using the `setRegisterForResult()` method.<br/>
+- Define a <Link to="/extras/language">language\*</Link> using the `setLanguage()` method;
+- Define your <Link to="/extras/logo-image">merchant's logo image from a file\*</Link> using the `setLogoResId()` method;
+- Register callback for <Link to="/extras/activity-result">activity result\*</Link> using the `setRegisterForResult()` method.<br/>
   \*Refer to the links to learn more about each of them.
 
 In case you want to implement any of them, following the same structure presented in the [implementation above](#implementation), just add these lines of code before your `startPayment()` method.
@@ -155,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
     ).build();
 
     // set language
-    checkout.setLanguage("pt-BR");
+    checkout.setLanguage("en-EN");
 
     // set merchant's logo
     checkout.setLogoResId(R.drawable.logo_jackpot_new);

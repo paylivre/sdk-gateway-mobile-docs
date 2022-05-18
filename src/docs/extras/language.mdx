@@ -3,6 +3,8 @@ title: Languages
 description: Learn more about the supported languages and how to implement them.
 ---
 
+import { Link } from "gatsby";
+
 Laguage is an extra addon config for the Paylivre's SDK Gateway. <br/>
 If no language is provided, Paylivre's SDK Gateway will pick the language from the user system (if it is supported).
 If not supported, the default language will always be english (en-EN).
@@ -17,18 +19,35 @@ If not supported, the default language will always be english (en-EN).
 
 ## Implementation
 
-Inside the function (either: [startCheckoutByUrl](/android/start-checkout-by-params) or [startCheckoutByParams](/android/start-checkout-by-url)) that instatiates the chosen checkout class
-(either: [StartCheckoutByParams](/android/start-checkout-by-params) or [StartCheckoutByUrl](/android/start-checkout-by-url))
+Inside the function `startCheckoutByUrl` (or `startCheckoutByParams`) that instantiates the chosen checkout class <Link to="/android/start-checkout-by-url">StartCheckoutByUrl</Link>
+(or <Link to="/android/start-checkout-by-params">StartCheckoutByParams</Link>)
 use the `setLanguage()` method prior to the `startPayment()` passing the desired language code string. That's it.
 
-```kotlin title=./java/MainActivity.kt lineNumbers=true highlight={4}
-fun startCheckoutByUrl() { // or startCheckoutByParams
-    val checkout = // ... instatiate it as presented before
+### kotlin
 
+```kotlin title=./java/MainActivity.kt lineNumbers=true highlight={5}
+fun startCheckoutByUrl() { // or startCheckoutByParams
+    val checkout = // ... instantiate it as presented before
+
+    // set language
     checkout.setLanguage("en-EN")
 
     // method that initializes the SDK
     checkout.startPayment(this)
 }
 
+```
+
+### java
+
+```java title=./java/MainActivity.java lineNumbers=true highlight={5}
+void startCheckoutByUrl(Integer requestCode, String url) {
+    StartCheckoutByURL checkout = // ... instantiate it as presented before
+
+    // set language
+    checkout.setLanguage("en-EN");
+
+    // method that initializes the SDK
+    checkout.startPayment(this);
+}
 ```
