@@ -8,29 +8,25 @@ In your app, you can invoke our SDK at any given momment, being at the `Activity
 
 ## Implementation
 
+### Kotlin implementation
+
 StartCheckoutByURL's `Builder()`, only accepts two parameters:
 
 - <u>request_code</u>: Optional Parameter. It is used to idenfity the return of
   SDK_GATEWAY_PAYLIVRE_ACTIVITY_REQUEST_CODE;
-- <u>url</u>: Required. A string in the correct and valid format accepted by our
-  Gateway API (
-  <a
-    target="_blank"
-    href="https://docs.google.com/document/d/1KAibQ0TOdSpNnQY_J6Ogl9zFqYPEcDFtHIi5RKBCZts/edit#heading=h.rz52pzduytmi"
-  >
-    learn more
-  </a>
-  ).
+- <u>url</u>: Required. A string in the correct and valid format* accepted by
+  our Gateway API.
+  <br /> *During your onboarding process, you will gain access to our Tech Support
+  team and all the documentation required to learn more about the url formating.
 
-Finally, we recommend you instatiating the `StartCheckoutByURL` class inside of a new function called `startCheckoutByUrl` (lines 8 through 18), as follows:
+Finally, we recommend you instatiating the `StartCheckoutByURL` class inside of a new function called `startCheckoutByUrl` (lines 7 through 18), as follows:
 
-```kotlin title=./java/MainActivity.kt lineNumbers=true highlight={8-18}
+```kotlin title=./java/MainActivity.kt lineNumbers=true highlight={7-18}
 class MainActivity : AppCompatActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     // ...other
 
-    // mocked generated URL for testing
-    val generatedUrl = "" // enter your generated URL here
+    val generatedUrl = "" // enter your generated URL here (as a string)
     // new function declared
     fun startCheckoutByUrl() {
         // This variable is an identifier that can be pass optionally to the Builder(). If so, i will be used for the method onActivityResult
@@ -41,7 +37,88 @@ class MainActivity : AppCompatActivity() {
             url = generatedUrl,
         ).build()
 
-      checkout.startPayment(this) // method that initializes the SDK
+      // method that initializes the SDK
+      checkout.startPayment(this)
+    }
+    startCheckoutByUrl() //  run the function
+  }
+}
+```
+
+### Java implementation
+
+Different than kotlin, in java, StartCheckoutByURL's `Builder()`, requires two parameters:
+
+- <u>request_code</u>: Required Parameter. It is used to idenfity the return of
+  SDK_GATEWAY_PAYLIVRE_ACTIVITY_REQUEST_CODE;
+- <u>url</u>: Required. A string in the correct and valid format* accepted by
+  our Gateway API.
+  <br /> *During your onboarding process, you will gain access to our Tech Support
+  team and all the documentation required to learn more about the url formating.
+
+We recommend you instatiating the `StartCheckoutByURL` class inside of a new function called `startCheckoutByUrl` (lines 4 through 9). <br/>
+Finally, to run it, inside the `onCreate` function instatiate the required variables and then invoke the function (lines 13 through 18), as follows:
+
+```java title=./java/MainActivity.java lineNumbers=true highlight={4-9,13-18}
+public class MainActivity extends AppCompatActivity {
+  // ...other
+
+  void startCheckoutByUrl(Integer requestCode, String url) {
+    StartCheckoutByURL checkout = new StartCheckoutByURL.Builder(requestCode, url).build();
+
+    // method that initializes the SDK
+    checkout.startPayment(this);
+  }
+
+  protected void onCreate(Bundle savedInstanceState) {
+    // ...other
+    String generatedUrl ""; // enter your generated URL here (as a string)
+
+    // request_code is a required argument for the function
+    Integer SDK_GATEWAY_PAYLIVRE_ACTIVITY_REQUEST_CODE = 0;
+
+    startCheckoutByUrl(SDK_GATEWAY_PAYLIVRE_ACTIVITY_REQUEST_CODE, generatedUrl); // run the function
+  }
+}
+```
+
+## Extra addons
+
+As extra addons, Paylivre's SDK Gateway Mobile offers three possibilities, through three different methods:
+
+- Define a [language\*](/extras/language) using the `setLanguage()` method;
+- Define your [merchant's logo image from a file\*](/extras/logo-image) using the `setLogoResId()` method;
+- Register callback for [activity result\*](/extras/activity-result) using the `setRegisterForResult()` method.<br/>
+  \*Refer to the links to learn more about each of them.
+
+In case you want to implement any of them, following the same structure presented in the [implementation above](#implementation), just add these lines of code before your `startPayment()` method.
+
+### Kotlin extras
+
+```kotlin title=./java/MainActivity.kt lineNumbers=true highlight={13,16-17,20}
+class MainActivity : AppCompatActivity() {
+  override fun onCreate(savedInstanceState: Bundle?) {
+    // ...other
+
+    val generatedUrl = "" // enter your generated URL here (as a string)
+    // new function declared
+    fun startCheckoutByUrl() {
+      val checkout = StartCheckoutByURL.Builder(
+          url = generatedUrl,
+      ).build()
+
+      // set language
+      checkout.setLanguage("en-EN")
+
+      // set merchant's logo
+      val MERCHANT_LOGO_RES_ID: Int = R.drawable.logo_merchant // loading from a given file
+      checkout.setLogoResId(MERCHANT_LOGO_RES_ID)
+
+      // Register callback for activity result
+      checkout.setRegisterForResult(checkoutRegisterForResult)
+
+      // method that initializes the SDK
+      checkout.startPayment(this)
     }
     startCheckoutByUrl() //  run the function
   }
@@ -49,44 +126,36 @@ class MainActivity : AppCompatActivity() {
 
 ```
 
-## Extra addons
+### Java extras
 
-As extra addons, Paylivre's SDK Gateway Mobile offers three possibilities, through three different methods:
+```java title=./java/MainActivity.java lineNumbers=true highlight={8,11,14}
+public class MainActivity extends AppCompatActivity {
+  // ...other
 
-- Define a [language](/extras/language) using the `setLanguage()` method;
-- Define your [merchant's logo image from a file](/extras/logo-image) using the `setLogoResId()` method;
-- Register callback for [activity result](/extras/activity-result) using the `setRegisterForResult()` method.<br/>
-  (refer to the links to learn more about each of them)
-
-In case you want to implement any of them, following the same structure presented in the [implementation above](#implementation), just add these lines of code before your `startPayment()` method:
-
-```kotlin title=./java/MainActivity.kt lineNumbers=true highlight={14,17-18,21}
-class MainActivity : AppCompatActivity() {
-  override fun onCreate(savedInstanceState: Bundle?) {
-    // ...other
-
-    // mocked generated URL for testing
-    val generatedUrl = "https://dev.gateway.paylivre.com?merchant_transaction_id=a47fc29a7b&merchant_id=302&operation=0&email=user_gateway_test@tutanota.com&document_number=61317581075&amount=500&currency=BRL&type=15&account_id=123654asd&callback_url=https://www.google.com&redirect_url=https://www.merchant_to_you.com&auto_approve=1&signature=JGFyZ29uMmkkdj0xOSRtPTE2LHQ9MixwPTEkWVdRNU5XWTVaR1UyT1RnNE5ETSRKYWlvWmRwc3J1L3cyQlJzVlBzd25B&logo_url=https://github.com/paylivre/gateway-example-react-js/blob/master/assets/logo_jackpot_new.png?raw=true"
-    // new function declared
-    fun startCheckoutByUrl() {
-      val checkout = StartCheckoutByURL.Builder(
-          url = generatedUrl,
-      ).build()
+  void startCheckoutByUrl(Integer requestCode, String url) {
+    StartCheckoutByURL checkout = new StartCheckoutByURL.Builder(requestCode, url).build();
 
     // set language
-    checkout.setLanguage("en-EN")
+    checkout.setLanguage("pt-BR");
 
     // set merchant's logo
-    val MERCHANT_LOGO_RES_ID: Int = R.drawable.logo_merchant // loading from a given file
-    checkout.setLogoResId(MERCHANT_LOGO_RES_ID)
+    checkout.setLogoResId(R.drawable.logo_jackpot_new); // loading from a given file
 
     // Register callback for activity result
-    checkout.setRegisterForResult(checkoutRegisterForResult)
+    checkout.setRegisterForResult(checkoutRegisterForResult);
 
-      checkout.startPayment(this) // method that initializes the SDK
-    }
-    startCheckoutByUrl() //  run the function
+    // method that initializes the SDK
+    checkout.startPayment(this);
+  }
+
+  protected void onCreate(Bundle savedInstanceState) {
+    // ...other
+    String generatedUrl ""; // enter your generated URL here (as a string)
+
+    // request_code is a required argument for the function
+    Integer SDK_GATEWAY_PAYLIVRE_ACTIVITY_REQUEST_CODE = 0;
+
+    startCheckoutByUrl(SDK_GATEWAY_PAYLIVRE_ACTIVITY_REQUEST_CODE, generatedUrl); // run the function
   }
 }
-
 ```

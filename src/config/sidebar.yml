@@ -18,8 +18,8 @@
       link: "/android/start-checkout-by-params"
 - label: iOS
   items:
-    - label: "TODO"
-      link: "/ios/todo"
+    - label: "Release"
+      link: "/ios/release"
 - label: Extras
   items:
     - label: "Languages"

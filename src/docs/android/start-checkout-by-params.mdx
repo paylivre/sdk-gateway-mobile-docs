@@ -12,9 +12,11 @@ In your app, you can invoke our SDK at any given momment, being at the `Activity
 
 StartCheckoutByParams's `Builder()`, accepts all the [parameters listed in the BASICS-Parameters](/basics/parameters) section.
 
-We recommend you instatiating the `StartCheckoutByParams` class inside of a new function called `startCheckoutByParams` (lines 6 through 31), as follows:
+We recommend you instatiating the `StartCheckoutByParams` class inside of a new function called `startCheckoutByParams`, as follows:
 
-```kotlin title=./java/MainActivity.kt lineNumbers=true highlight={6-31}
+### Kotlin implementation
+
+```kotlin title=./java/MainActivity.kt lineNumbers=true highlight={6-32}
 class MainActivity : AppCompatActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     // ...other
@@ -44,12 +46,53 @@ class MainActivity : AppCompatActivity() {
             pix_key = "61317581075" // Optional
         ).build()
 
-      checkout.startPayment(this) // method that initializes the SDK
+      // method that initializes the SDK
+      checkout.startPayment(this)
     }
     startCheckoutByParams() //  run the function
   }
 }
+```
 
+### Java implementation
+
+```java title=./java/MainActivity.java lineNumbers=true highlight={4-27}
+public class MainActivity extends AppCompatActivity {
+  // ...other
+
+  void startCheckoutByParams(Integer requestCode) {
+    StartCheckoutByParams checkout = new StartCheckoutByParams.Builder(
+        requestCode, // required
+        123, // merchant_id
+        "0c85yWaiBWx1Mclvink7suWrHoEQnH8Q", // gateway_token
+        0, // operation
+        "12264654", // merchant_transaction_id
+        500, // amount
+        "BRL", // currency
+        1, // type
+        "1asd456", // account_id
+        "https://www.google.com", // callback_url
+        "https://playground.gateway.paylivre.com", // base_url
+        1, // auto_approve
+        "user_gateway_test@tutanota.com", // email_address
+        "61317581075", // document
+        "https://logo_url.png", // logo_url
+        0, // pix_key_type
+        "61317581075" // pix_key
+    ).build();
+
+    // method that initializes the SDK
+    checkout.startPayment(this);
+  }
+
+  protected void onCreate(Bundle savedInstanceState) {
+    // ...other
+    // request_code is a required argument for the function
+    Integer SDK_GATEWAY_PAYLIVRE_ACTIVITY_REQUEST_CODE = 0;
+
+    startCheckoutByParams(SDK_GATEWAY_PAYLIVRE_ACTIVITY_REQUEST_CODE); // run the function
+  }
+}
 ```
 
 ## Expected result
@@ -62,12 +105,14 @@ As a result of the implementation above, you will get to the following screen:
 
 As extra addons, Paylivre's SDK Gateway Mobile offers three possibilities, through three different methods:
 
-- Define a [language](/extras/language) using the `setLanguage()` method;
-- Define your [merchant's logo image from a file](/extras/logo-image) using the `setLogoResId()` method;
-- Register callback for [activity result](/extras/activity-result) using the `setRegisterForResult()` method.<br/>
-  (refer to the links to learn more about each of them)
+- Define a [language\*](/extras/language) using the `setLanguage()` method;
+- Define your [merchant's logo image from a file\*](/extras/logo-image) using the `setLogoResId()` method;
+- Register callback for [activity result\*](/extras/activity-result) using the `setRegisterForResult()` method.<br/>
+  \*Refer to the links to learn more about each of them.
 
-In case you want to implement any of them, following the same structure presented in the [implementation above](#implementation), just add these lines of code before your `startPayment()` method:
+In case you want to implement any of them, following the same structure presented in the [implementation above](#implementation), just add these lines of code before your `startPayment()` method.
+
+### Kotlin extras
 
 ```kotlin title=./java/MainActivity.kt lineNumbers=true highlight={12,15-16,19}
 class MainActivity : AppCompatActivity() {
@@ -80,20 +125,54 @@ class MainActivity : AppCompatActivity() {
           // ...all the parameters
       ).build()
 
-    // set language
-    checkout.setLanguage("en-EN")
+      // set language
+      checkout.setLanguage("en-EN")
 
-    // set merchant's logo
-    val MERCHANT_LOGO_RES_ID: Int = R.drawable.logo_merchant // loading from a given file
-    checkout.setLogoResId(MERCHANT_LOGO_RES_ID)
+      // set merchant's logo
+      val MERCHANT_LOGO_RES_ID: Int = R.drawable.logo_merchant // loading from a given file
+      checkout.setLogoResId(MERCHANT_LOGO_RES_ID)
 
-    // Register callback for activity result
-    checkout.setRegisterForResult(checkoutRegisterForResult)
+      // Register callback for activity result
+      checkout.setRegisterForResult(checkoutRegisterForResult)
 
-      checkout.startPayment(this) // method that initializes the SDK
+      // method that initializes the SDK
+      checkout.startPayment(this)
     }
     startCheckoutByParams() //  run the function
   }
 }
+```
 
+### Java extras
+
+```java title=./java/MainActivity.java lineNumbers=true highlight={10,13,16}
+public class MainActivity extends AppCompatActivity {
+  // ...other
+
+  void startCheckoutByParams(Integer requestCode) {
+    StartCheckoutByParams checkout = new StartCheckoutByParams.Builder(
+        // ...all the parameters
+    ).build();
+
+    // set language
+    checkout.setLanguage("pt-BR");
+
+    // set merchant's logo
+    checkout.setLogoResId(R.drawable.logo_jackpot_new);
+
+    // Register callback for activity result
+    checkout.setRegisterForResult(checkoutRegisterForResult);
+
+    // method that initializes the SDK
+    checkout.startPayment(this);
+  }
+
+  protected void onCreate(Bundle savedInstanceState) {
+    // ...other
+    // request_code is a required argument for the function
+    Integer SDK_GATEWAY_PAYLIVRE_ACTIVITY_REQUEST_CODE = 0;
+
+    startCheckoutByParams(SDK_GATEWAY_PAYLIVRE_ACTIVITY_REQUEST_CODE); // run the function
+  }
+}
 ```
