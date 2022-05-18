@@ -23,7 +23,8 @@ fun startCheckoutByUrl() { // or startCheckoutByParams
     val MERCHANT_LOGO_RES_ID: Int = R.drawable.logo_merchant // loading from a given file
     checkout.setLogoResId(MERCHANT_LOGO_RES_ID)
 
-    checkout.startPayment(this) // method that initializes the SDK
+    // method that initializes the SDK
+    checkout.startPayment(this)
 }
 
 ```

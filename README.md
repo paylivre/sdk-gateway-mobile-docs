@@ -15,4 +15,4 @@ This project host the documentation that will guide your integration process wit
 
 ## Check the documentation now!
 
-Just follow the live link: <a href="https://paylivre.github.io/sdk-gateway-mobile-docs/">Paylivre - SDK Gateway Mobile Docs</a>.
+Just follow the live link: <a href="https://paylivre.github.io/sdk-gateway-mobile-docs/" target="_blank">Paylivre - SDK Gateway Mobile Docs</a>.

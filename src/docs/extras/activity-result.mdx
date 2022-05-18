@@ -60,6 +60,7 @@ fun startCheckoutByUrl() { // or startCheckoutByParams
     // Register callback for activity result
     checkout.setRegisterForResult(checkoutRegisterForResult)
 
-    checkout.startPayment(this) // method that initializes the SDK
+    // method that initializes the SDK
+    checkout.startPayment(this)
 }
 ```
