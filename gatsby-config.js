@@ -17,7 +17,7 @@ module.exports = {
       options: {
         configPath: `src/config`,
         docsPath: `src/docs`,
-        repositoryUrl: `https://github.com/paylivre/sdk-gateway-mobile-docs`,
+        // repositoryUrl: `https://github.com/paylivre/sdk-gateway-mobile-docs`, // this option will render the "Edit this page on GitHub" button
         // yamlFilesPath: `src/yamlFiles`,
         // baseDir: `examples/gatsby-theme-docs`,
       },
