@@ -134,7 +134,7 @@ For java implementation, besides declaring the `checkoutRegisterForResult` funct
 
 - Declare a variable `SDK_GATEWAY_PAYLIVRE_ACTIVITY_REQUEST_CODE` with an integer to identify paylivre's SDK Activity (line 5);
 - Declare the override function for the `onActivityResult` as presented below (lines 22 through 46);
-- Thanks to the native method `onActivityResult`'s nature, it is not requrired to run any method inside the `startCheckoutByUrl` function to invoke it.
+- Thanks to the native method `onActivityResult`'s nature, it is not required to run any method inside the `startCheckoutByUrl` function to invoke it.
 
 ```java title=./java/MainActivity.java lineNumbers=true highlight={5,22-46}
 public class MainActivity extends AppCompatActivity {

@@ -6,7 +6,7 @@ description: Learn how to properly implement the StartCheckoutByURL class.
 import { Link } from "gatsby";
 
 Implementing with `StartCheckoutByURL` class consists in a quick possibility for the merchant to integrate with Paylivre's SDK Gateway, when it desires to generate the URL by yourself.<br/>
-In your app, you can invoke our SDK at any given momment, being at the `Activity` or at any given `fragment`.<br/> The examples in this section below will occour at the `MainActivity.kt`.
+In your app, you can invoke our SDK at any given moment, being at the `Activity` or at any given `fragment`.<br/> The examples in this section below will occur at the `MainActivity.kt`.
 
 ## Implementation
 
@@ -14,16 +14,19 @@ In your app, you can invoke our SDK at any given momment, being at the `Activity
 
 StartCheckoutByURL's `Builder()`, only accepts two parameters:
 
-- <u>request_code</u>: Optional Parameter. It is used to idenfity the return of
+- <u>request_code</u>: Optional Parameter. It is used to identify the return of
   SDK_GATEWAY_PAYLIVRE_ACTIVITY_REQUEST_CODE;
 - <u>url</u>: Required. A string in the correct and valid format* accepted by
   our Gateway API.
   <br /> *During your onboarding process, you will gain access to our Tech Support
-  team and all the documentation required to learn more about the url formating.
+  team and all the documentation required to learn more about the url formatting.
 
-Finally, we recommend you instatiating the `StartCheckoutByURL` class inside of a new function called `startCheckoutByUrl` (lines 7 through 18), as follows:
+Finally, we recommend you to instantiate the `StartCheckoutByURL` class inside of a new function called `startCheckoutByUrl` (lines 20 through 21), as follows:
 
-```kotlin title=./java/MainActivity.kt lineNumbers=true highlight={7-18}
+```kotlin title=./java/MainActivity.kt lineNumbers=true highlight={10-21}
+// ...other imports
+import com.paylivre.sdk.gateway.android.StartCheckoutByURL
+
 class MainActivity : AppCompatActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     // ...other
@@ -31,7 +34,7 @@ class MainActivity : AppCompatActivity() {
     val generatedUrl = "" // enter your generated URL here (as a string)
     // new function declared
     fun startCheckoutByUrl() {
-        // This variable is an identifier that can be pass optionally to the Builder(). If so, i will be used for the method onActivityResult
+        // This variable is an identifier that can be passed optionally to the Builder(). If so, i will be used for the method onActivityResult
         // val SDK_GATEWAY_PAYLIVRE_ACTIVITY_REQUEST_CODE = 1
 
         val checkout = StartCheckoutByURL.Builder(
@@ -51,17 +54,20 @@ class MainActivity : AppCompatActivity() {
 
 Different than kotlin, in java, StartCheckoutByURL's `Builder()`, requires two parameters:
 
-- <u>request_code</u>: Required Parameter. It is used to idenfity the return of
+- <u>request_code</u>: Required Parameter. It is used to identify the return of
   SDK_GATEWAY_PAYLIVRE_ACTIVITY_REQUEST_CODE;
 - <u>url</u>: Required. A string in the correct and valid format* accepted by
   our Gateway API.
   <br /> *During your onboarding process, you will gain access to our Tech Support
-  team and all the documentation required to learn more about the url formating.
+  team and all the documentation required to learn more about the url formatting.
 
-We recommend you instatiating the `StartCheckoutByURL` class inside of a new function called `startCheckoutByUrl` (lines 4 through 9). <br/>
-Finally, to run it, inside the `onCreate` function instantiate the required variables and then invoke the function (lines 13 through 18), as follows:
+We recommend you to instantiate the `StartCheckoutByURL` class inside of a new function called `startCheckoutByUrl` (lines 7 through 12). <br/>
+Finally, to run it, inside the `onCreate` function instantiate the required variables and then invoke the function (lines 16 through 21), as follows:
 
-```java title=./java/MainActivity.java lineNumbers=true highlight={4-9,13-18}
+```java title=./java/MainActivity.java lineNumbers=true highlight={7-12,16-21}
+// ...other imports
+import com.paylivre.sdk.gateway.android.StartCheckoutByURL;
+
 public class MainActivity extends AppCompatActivity {
   // ...other
 
@@ -84,14 +90,16 @@ public class MainActivity extends AppCompatActivity {
 }
 ```
 
+For java projects, `requestCode` is a required argument for the `startCheckoutByUrl` function, thus, we need to pass down at least `null` or a valid integer. Learn more at the <Link to="/extras/activity-result">Activity result</Link> section.
+
 ## Extra addons
 
 As extra addons, Paylivre's SDK Gateway Mobile offers three possibilities, through three different methods:
 
-- Define a <Link to="/extras/language">language\*</Link> using the `setLanguage()` method;
-- Define your <Link to="/extras/logo-image">merchant's logo image from a file\*</Link> using the `setLogoResId()` method;
-- Register callback for <Link to="/extras/activity-result">activity result\*</Link> using the `setRegisterForResult()` method.<br/>
-  \*Refer to the links to learn more about each of them.
+- Define a <Link to="/extras/language">language\*</Link>, by using the `setLanguage()` method;
+- Define your <Link to="/extras/logo-image">merchant's logo image from a file\*</Link>, by using the `setLogoResId()` method;
+- Register callback for <Link to="/extras/activity-result">activity result\*</Link>, by using the `setRegisterForResult()` method.<br/>
+  \*Important: refer to the links to learn more about each of them.
 
 In case you want to implement any of them, following the same structure presented in the [implementation above](#implementation), just add these lines of code before your `startPayment()` method.
 

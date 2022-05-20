@@ -7,12 +7,13 @@ import { Link } from "gatsby";
 import QuickImplementationImage from "../../assets/QuickImplementationImage.js";
 
 For a quick view (demo) of Paylivre's SDK Gateway, please refer to the [Quick implementation](#quick-implementation) section.<br/>
-To properly implement Paylivre's SDK Gateway checkout the [Chose your checkout method](#chose-your-checkout-method) section.<br/>
-In your app, you can invoke our SDK at any given momment, being at the `Activity` or at any given `fragment`.<br/> The examples in this section below will occour at the `MainActivity.kt`.
+To properly implement Paylivre's SDK Gateway, please checkout the [Choose your checkout method](#choose-your-checkout-method) section.<br/>
+In your app, you can invoke our SDK at any given moment, being at the `Activity` or at any given `fragment`.<br/>
+The examples in this section below and throughout this documentation will occur at the `MainActivity.kt`.
 
 ## Quick implementation
 
-To enable your team to quick implement and test our SDK solution, follow the steps below.
+To enable your team to quickly implement and test our SDK solution, follow the steps below.
 
 ### Step 1 - Import
 
@@ -32,10 +33,10 @@ At your `MainActivity.kt` file, inside the `onCreate` function, lets:
 
 - instantiate a mocked generated URL for testing (line 6);
 - Create a new function to instantiate the class `StartCheckoutByURL` and then build it (line 8 through 11);
-- Method that initializes the SDK (at line 13);
-- Finally, run the function (at line 15).
+- Method that initializes the SDK (at line 14);
+- Finally, run the function (at line 16).
 
-```kotlin title=./java/MainActivity.kt lineNumbers=true highlight={6,8-11,13,15}
+```kotlin title=./java/MainActivity.kt lineNumbers=true highlight={6,8-11,14,16}
 class MainActivity : AppCompatActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     // ...other
@@ -48,7 +49,8 @@ class MainActivity : AppCompatActivity() {
           url = generatedUrl,
       ).build()
 
-      checkout.startPayment(this) // method that initializes the SDK
+      // method that initializes the SDK
+      checkout.startPayment(this)
     }
     startCheckoutByUrl() //  run the function
   }
@@ -60,20 +62,20 @@ class MainActivity : AppCompatActivity() {
 
 At your `MainActivity.java` file, lets:
 
-- Create a new function to instantiate the class `StartCheckoutByURL` and then build it (line 5);
-- Method that initializes the SDK (at line 7);
-- Inside the `onCreate` function, instantiate a mocked generated URL for testing (line 13);
-- Set a integer value to a `SDK_GATEWAY_PAYLIVRE_ACTIVITY_REQUEST_CODE` variable (line 16);
-- Finally, run the function (at line 18) with the two arguments.
+- Create a new function to instantiate the class `StartCheckoutByURL` and then build it (line 4 and 5);
+- Method that initializes the SDK (at line 8);
+- Inside the `onCreate` function, instantiate a mocked generated URL for testing (line 14);
+- Finally, run the function (at line 16) with the two arguments.
 
-```java title=./java/MainActivity.java lineNumbers=true highlight={5,7,13,16,18}
+```java title=./java/MainActivity.java lineNumbers=true highlight={4-5,8,14,16}
 public class MainActivity extends AppCompatActivity {
     // ...other
 
     void startCheckoutByUrl(Integer requestCode, String url) {
       StartCheckoutByURL checkout = new StartCheckoutByURL.Builder(requestCode, url).build();
 
-      checkout.startPayment(this); // method that initializes the SDK
+      // method that initializes the SDK
+      checkout.startPayment(this);
     }
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,20 +83,20 @@ public class MainActivity extends AppCompatActivity {
     // mocked generated URL for testing
     String generatedUrl = "https://dev.gateway.paylivre.com?merchant_transaction_id=a47fc29a7b&merchant_id=302&operation=0&email=user_gateway_test@tutanota.com&document_number=61317581075&amount=500&currency=BRL&type=15&account_id=123654asd&callback_url=https://www.google.com&redirect_url=https://www.merchant_to_you.com&auto_approve=1&signature=JGFyZ29uMmkkdj0xOSRtPTE2LHQ9MixwPTEkWVdRNU5XWTVaR1UyT1RnNE5ETSRKYWlvWmRwc3J1L3cyQlJzVlBzd25B&logo_url=https://github.com/paylivre/gateway-example-react-js/blob/master/assets/logo_jackpot_new.png?raw=true";
 
-    // request_code is a required argument for the function
-    Integer SDK_GATEWAY_PAYLIVRE_ACTIVITY_REQUEST_CODE = 0;
-
-    startCheckoutByUrl(SDK_GATEWAY_PAYLIVRE_ACTIVITY_REQUEST_CODE, generatedUrl); // run the function
+    startCheckoutByUrl(null, generatedUrl); // run the function
   }
 }
-
 ```
+
+For java projects, `requestCode` is a required argument for the `startCheckoutByUrl` function, thus, we need to pass down at least `null`. Learn more at the <Link to="/extras/activity-result">Activity result</Link> section.
+
+### Result
 
 Done! As a result of the implementation presented above, you will get to the following screen:
 
 <QuickImplementationImage />
 
-## Chose your checkout method
+## Choose your checkout method
 
 For a more customized and complete experience, Paylivre offers two different checkout methods.<br/>
-To learn detailed information about them, access: (a) <Link to="/android/start-checkout-by-url">StartCheckoutByURL</Link> and (b) <Link to="/android/start-checkout-by-params">StartCheckoutByParams</Link>.
+To learn detailed information about these two, access: (a) <Link to="/android/start-checkout-by-url">StartCheckoutByURL</Link> and (b) <Link to="/android/start-checkout-by-params">StartCheckoutByParams</Link>.

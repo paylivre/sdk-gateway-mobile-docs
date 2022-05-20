@@ -6,25 +6,29 @@ description: Learn how to properly implement the StartCheckoutByParams class.
 import { Link } from "gatsby";
 import CheckoutByParamsImage from "../../assets/CheckoutByParamsImage.js";
 
-Implementing with `StartCheckoutByParams` class consists as the alternative to the <Link to="/android/start-checkout-by-url">StartCheckoutByURL</Link> for the merchant to integrate with Paylivre's SDK Gateway. It is suggested when the merchant do not want to handle the generation of the URL by itself, thus, it is required to provide the parameters.<br/>
-In your app, you can invoke our SDK at any given momment, being at the `Activity` or at any given `fragment`.<br/> The examples in this section below will occour at the `MainActivity.kt`.
+Implementing with `StartCheckoutByParams` class consists as the alternative to the <Link to="/android/start-checkout-by-url">StartCheckoutByURL</Link> for the merchant to integrate with Paylivre's SDK Gateway. It is suggested when the merchant do not want to handle the generation of the URL by itself, thus, it is required to provide the parameters.<br/><br/>
+In your app, you can invoke our SDK at any given moment, being at the `Activity` or at any given `fragment`.<br/> The examples in this section below will occur at the `MainActivity.kt`.
 
 ## Implementation
 
 StartCheckoutByParams's `Builder()`, accepts all the <Link to="/basics/parameters">parameters listed in the BASICS-Parameters</Link> section.
 
-We recommend you instatiating the `StartCheckoutByParams` class inside of a new function called `startCheckoutByParams`, as follows:
+We recommend you to instantiate the `StartCheckoutByParams` class inside of a new function called `startCheckoutByParams` passing, at least, all required parameters.<br/>
+Then run the function afterwards, as follows:
 
 ### Kotlin implementation
 
-```kotlin title=./java/MainActivity.kt lineNumbers=true highlight={6-32}
+```kotlin title=./java/MainActivity.kt lineNumbers=true highlight={9-35}
+// ...other imports
+import com.paylivre.sdk.gateway.android.StartCheckoutByParams
+
 class MainActivity : AppCompatActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     // ...other
 
     // new function declared
     fun startCheckoutByParams() {
-        // This variable is an identifier that can be pass optionally to the Builder(). If so, i will be used for the method onActivityResult
+        // This variable is an identifier that can be passed optionally to the Builder(). If so, i will be used for the method onActivityResult
         // val SDK_GATEWAY_PAYLIVRE_ACTIVITY_REQUEST_CODE = 1
 
         val checkout = StartCheckoutByParams.Builder(
@@ -57,7 +61,10 @@ class MainActivity : AppCompatActivity() {
 
 ### Java implementation
 
-```java title=./java/MainActivity.java lineNumbers=true highlight={4-27}
+```java title=./java/MainActivity.java lineNumbers=true highlight={7-30}
+// ...other imports
+import com.paylivre.sdk.gateway.android.StartCheckoutByParams;
+
 public class MainActivity extends AppCompatActivity {
   // ...other
 
@@ -106,10 +113,10 @@ As a result of the implementation above, you will get to the following screen:
 
 As extra addons, Paylivre's SDK Gateway Mobile offers three possibilities, through three different methods:
 
-- Define a <Link to="/extras/language">language\*</Link> using the `setLanguage()` method;
-- Define your <Link to="/extras/logo-image">merchant's logo image from a file\*</Link> using the `setLogoResId()` method;
-- Register callback for <Link to="/extras/activity-result">activity result\*</Link> using the `setRegisterForResult()` method.<br/>
-  \*Refer to the links to learn more about each of them.
+- Define a <Link to="/extras/language">language\*</Link>, by using the `setLanguage()` method;
+- Define your <Link to="/extras/logo-image">merchant's logo image from a file\*</Link>, by using the `setLogoResId()` method;
+- Register callback for <Link to="/extras/activity-result">activity result\*</Link>, by using the `setRegisterForResult()` method.<br/>
+  \*Important: refer to the links to learn more about each of them.
 
 In case you want to implement any of them, following the same structure presented in the [implementation above](#implementation), just add these lines of code before your `startPayment()` method.
 
