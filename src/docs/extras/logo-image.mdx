@@ -4,6 +4,7 @@ description: Learn more about how to personalize the logo image.
 ---
 
 import { Link } from "gatsby";
+import GenericLogoSize from "../../assets/extras/GenericLogoSize.js";
 
 Importing your Merchant Logo Image is an extra addon config for the Paylivre's SDK Gateway. <br/>
 If no image is provided, Paylivre's SDK Gateway will, by default, present Paylivre's logo.
@@ -43,3 +44,50 @@ void startCheckoutByUrl(Integer requestCode, String url) {
     checkout.startPayment(this);
 }
 ```
+
+## Logo recommended file type
+
+If using Android Studio IDE, you can import either image or vector assets.<br/>
+
+The ideal file type is vector, i.e.: `svg` (Scalable Vector Graphics). But you can also use `png`, as long as you follow the recommended size, as presented below.
+
+## Logo recommended size
+
+For a better display of your logo, it needs to be rectangular and larger in its horizontal axis (width).
+Your image will be resized accordingly to a <b>126dp:26dp\*</b> ratio (horizontal:vertical), e.g.:
+
+126dp:26dp<br/>
+252dp:52dp<br/>
+504dp:104dp<br/>
+1008dp:208dp<br/>
+...<br/>
+
+"To preserve the visible size of your UI on screens with different densities, you must design your UI using density-independent pixels (dp) as your unit of measurement." Learn more at <Link to="https://developer.android.com/training/multiscreen/screendensities">Android's official Docs: 'Support different pixel densities'</Link>.
+
+### Examples
+
+As visual examples, we present the following incorrect image sizing:
+
+- For a `26dp:26dp` ratio (square):
+
+  <GenericLogoSize type="incorrect_logo_26_26" />
+  <br />
+
+- For a `52dp:26dp` ratio (rectangular, but smaller in the width):
+
+  <GenericLogoSize type="incorrect_logo_52_26" />
+  <br />
+
+- For a `75dp:26dp` ratio (rectangular, but smaller in the width):
+
+  <GenericLogoSize type="incorrect_logo_75_26" />
+  <br />
+
+- For a `170dp:26dp` ratio (rectangular, but larger in the width):
+
+  <GenericLogoSize type="incorrect_logo_170_26" />
+  <br />
+
+Finally, the expected result, when the imported image follows a `126dp:26dp` ratio, is present below. Where we can see a more optimized used of the available width:height, and no distortions.
+
+<GenericLogoSize type="correct_logo" />
