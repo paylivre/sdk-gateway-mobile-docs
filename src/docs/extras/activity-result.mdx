@@ -217,16 +217,19 @@ When `is_generated_transaction = 1` (true), which means that the transaction was
 | Key                   | Type | Description                                                                                                |
 | --------------------- | ---- | ---------------------------------------------------------------------------------------------------------- |
 | order_id              | Int  | Returns the order's identifier that was just registered in paylivre's system.                              |
-| order_status_id       | Int  | Returns the status ID for the order created.                                                               |
-| order_type_id         | Int  | Returns the type ID for the order created.                                                                 |
 | transaction_id        | Int  | Returns the transaction's identifier that was just registered in paylivre's system.                        |
 | transaction_status_id | Int  | Returns the status ID for the transaction. 0 = NEW. 1 = PENDING. 2 = APPROVED. 3 = CANCELLED. 4 = EXPIRED. |
 | deposit_id            | Int  | Returns the deposit's identifier that was just registered in paylivre's system.                            |
 | deposit_status_id     | Int  | Returns the status ID for the deposit created.                                                             |
+
+<!--
+| order_status_id       | Int  | Returns the status ID for the order created.                                                               |
+| order_type_id         | Int  | Returns the type ID for the order created.                                                                 |
 | deposit_type_id       | Int  | Returns the type ID for the deposit created.                                                               |
 | withdrawal_id         | Int  | Returns the withdrawal's identifier that was just registered in paylivre's system.                         |
 | withdrawal_status_id  | Int  | Returns the status ID for the withdrawal created.                                                          |
 | withdrawal_type_id    | Int  | Returns the type ID for the withdrawal created.                                                            |
+ -->
 
 If `is_generated_transaction = 0` (false), all the parameters above will return `null`.
 
