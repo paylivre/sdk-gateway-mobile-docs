@@ -188,4 +188,78 @@ public class MainActivity extends AppCompatActivity {
 
 ## Result
 
-As presented above, the `data` object has a lot of 'extra' data that the SDK may return to the Activity that has instantiated it.
+As presented above, the returned `data` object has a lot of extra information that the SDK may return to the Activity that has instantiated it.<br/>
+In the following section they are presented with a little more detail.
+
+### Return Parameters
+
+The list of the main parameters that can be accessed when implementing `ActivityResult` is presented in the table below:
+
+#### Basic table
+
+| Key                           | Type | Description                                                                                                                   |
+| ----------------------------- | ---- | ----------------------------------------------------------------------------------------------------------------------------- |
+| selected_type                 | Int  | Returns the selected transaction type ID: 0 = Wire Transfer, 1 = Billet, 4 = PIX and 5 = Paylivre Wallet                      |
+| is_generated_transaction      | Int  | Was the transaction generated? Returns 1 if true or 0 if false. [Learn more](#1--success-table)                               |
+| is_error_transaction          | Int  | Was there an error in the transaction? Returns 1 if true or 0 if false. [Learn more](#2--error-table)                         |
+| is_user_completed_transaction | Int  | Was the transaction completed by the user? Returns 1 if true or 0 if false. [Learn more](#3--transaction-not-completed-table) |
+
+Based on the return of these four parameters, others lists of parameters can be accessed, either in success or error, as presented in the following tables:
+
+- [1- Success table](#1--success-table)
+- [2- Error table](#2--error-table)
+- [3- Transaction not completed table](#3--transaction-not-completed-table)
+
+#### 1- Success table
+
+When `is_generated_transaction = 1` (true), which means that the transaction was generated successfully, you will be able to access the list of parameters below:
+
+| Key                   | Type | Description                                                                                                |
+| --------------------- | ---- | ---------------------------------------------------------------------------------------------------------- |
+| order_id              | Int  | Returns the order's identifier that was just registered in paylivre's system.                              |
+| order_status_id       | Int  | Returns the status ID for the order created.                                                               |
+| order_type_id         | Int  | Returns the type ID for the order created.                                                                 |
+| transaction_id        | Int  | Returns the transaction's identifier that was just registered in paylivre's system.                        |
+| transaction_status_id | Int  | Returns the status ID for the transaction. 0 = NEW. 1 = PENDING. 2 = APPROVED. 3 = CANCELLED. 4 = EXPIRED. |
+| deposit_id            | Int  | Returns the deposit's identifier that was just registered in paylivre's system.                            |
+| deposit_status_id     | Int  | Returns the status ID for the deposit created.                                                             |
+| deposit_type_id       | Int  | Returns the type ID for the deposit created.                                                               |
+| withdrawal_id         | Int  | Returns the withdrawal's identifier that was just registered in paylivre's system.                         |
+| withdrawal_status_id  | Int  | Returns the status ID for the withdrawal created.                                                          |
+| withdrawal_type_id    | Int  | Returns the type ID for the withdrawal created.                                                            |
+
+If `is_generated_transaction = 0` (false), all the parameters above will return `null`.
+
+#### 2- Error table
+
+When `is_error_transaction = 1` (true), which means that there was an error in the transaction, thus it was not generated, you will be able to access the list of parameters below:
+
+| Key                       | Type   | Description                            |
+| ------------------------- | ------ | -------------------------------------- |
+| error_transaction_code    | String | Returns the error transaction code.    |
+| error_transaction_message | String | Returns the error transaction message. |
+
+If `is_error_transaction = 0` (false), all the parameters above will return `null`.
+
+#### 3- Transaction not completed table
+
+When `is_user_completed_transaction = 0` (false), which means that the user could not complete the transaction on his end, the transaction is not generated. <br/>
+In this scenario, you will be able to access the list of parameters below:
+
+| Key                                 | Type   | Description                                                                          |
+| ----------------------------------- | ------ | ------------------------------------------------------------------------------------ |
+| action_not_completed_code           | String | Returns a code                                                                       |
+| action_not_completed_message        | String | Returns a Description                                                                |
+| error_completed_transaction_message | String | Returns a description, when the user could not complete the transaction due to error |
+
+If `is_user_completed_transaction = 1` (true), all the parameters above will return `null`.
+
+To learn more about the possible errors code and messages relating to the user not completing the transaction, please refer to te [Actions not completed by the user](#actions-not-completed-by-the-user) section.
+
+### Actions not completed by the user
+
+The table below presents the possibilities of user triggered errors, resulting in not completing the transaction (`is_user_completed_transaction = 0`).
+
+| Code  | Message                                                   | Case                                                                                                                |
+| ----- | --------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| RC001 | "User did not insert proof of deposit type bank transfer" | When the user did not insert a valid image file (format ou size), any other error uploading the transaction receipt |

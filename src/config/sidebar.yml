@@ -16,10 +16,11 @@
       link: "/android/start-checkout-by-url"
     - label: "StartCheckoutByParams"
       link: "/android/start-checkout-by-params"
-- label: iOS
-  items:
-    - label: "Release"
-      link: "/ios/release"
+# uncomment after releasing the iOS SDK Gateway
+# - label: iOS
+#   items:
+#     - label: "Release"
+#       link: "/ios/release"
 - label: Extras
   items:
     - label: "Languages"

@@ -1,10 +1,10 @@
 import React from "react";
 
-import correctLogoSize from "../../../static/extras/logo-image/correct-logo-size.png";
-import incorrectLogoSize26_26 from "../../../static/extras/logo-image/incorrect-logo-size-26-26.png";
-import incorrectLogoSize52_26 from "../../../static/extras/logo-image/incorrect-logo-size-52-26.png";
-import incorrectLogoSize75_26 from "../../../static/extras/logo-image/incorrect-logo-size-75-26.png";
-import incorrectLogoSize170_26 from "../../../static/extras/logo-image/incorrect-logo-size-170-26.png";
+import correctLogoSize from "../../static/extras/logo-image/correct-logo-size.png";
+import incorrectLogoSize26_26 from "../../static/extras/logo-image/incorrect-logo-size-26-26.png";
+import incorrectLogoSize52_26 from "../../static/extras/logo-image/incorrect-logo-size-52-26.png";
+import incorrectLogoSize75_26 from "../../static/extras/logo-image/incorrect-logo-size-75-26.png";
+import incorrectLogoSize170_26 from "../../static/extras/logo-image/incorrect-logo-size-170-26.png";
 
 export default function GenericLogoSize(props) {
   // object literal to help switching between types of logo images based on the passed prop

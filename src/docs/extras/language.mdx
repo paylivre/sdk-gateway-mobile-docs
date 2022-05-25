@@ -7,13 +7,13 @@ import { Link } from "gatsby";
 
 Language is an extra addon config for the Paylivre's SDK Gateway. <br/>
 If no language is provided, Paylivre's SDK Gateway will pick the language from the user system (if it is supported).
-If not supported, the default language will always be english (en-EN).
+If not supported, the default language will always be english (en-US).
 
 ## Supported Languages
 
 | Language            | Default | Code string |
 | ------------------- | ------- | ----------- |
-| English             | Yes     | "en-EN"     |
+| English             | Yes     | "en-US"     |
 | Portuguese (Brazil) | No      | "pt-BR"     |
 | Spanish             | No      | "es-ES"     |
 
@@ -30,7 +30,7 @@ fun startCheckoutByUrl() { // or startCheckoutByParams
     val checkout = // ... instantiate it as presented before
 
     // set language
-    checkout.setLanguage("en-EN")
+    checkout.setLanguage("en-US")
 
     // method that initializes the SDK
     checkout.startPayment(this)
@@ -45,7 +45,7 @@ void startCheckoutByUrl(Integer requestCode, String url) {
     StartCheckoutByURL checkout = // ... instantiate it as presented before
 
     // set language
-    checkout.setLanguage("en-EN");
+    checkout.setLanguage("en-US");
 
     // method that initializes the SDK
     checkout.startPayment(this);
