@@ -4,6 +4,7 @@ description: Learn more about the activity result and how to implement it.
 ---
 
 import { Link } from "gatsby";
+import ActivityResultImage from "../../assets/ActivityResultImage.js";
 
 Activity result is an extra addon config for the Paylivre's SDK Gateway. <br/>
 If the Activity result is not implemented, Paylivre's SDK Gateway will run as expected, but, once it is done, it will not return any parameter or activity to your app.<br />
@@ -16,13 +17,13 @@ In this section it is presented one implementation option for kotlin projects an
 
 ### kotlin
 
-First, it is needed to declare a function that will be used as an argument later. We suggest to name it as `checkoutRegisterForResult` (lines 6 through 31).
+First, it is needed to declare a function that will be used as an argument later. We suggest to name it as `checkoutRegisterForResult` (lines 6 through 36).
 
 Finally, inside the function `startCheckoutByUrl` (or `startCheckoutByParams`) that instantiates the chosen checkout class <Link to="/android/start-checkout-by-url">StartCheckoutByUrl</Link>
 (or <Link to="/android/start-checkout-by-params">StartCheckoutByParams</Link>)
-use the `setRegisterForResult()` method prior to the `startPayment()` passing as an argument the declared function, `checkoutRegisterForResult` (line 37).
+use the `setRegisterForResult()` method prior to the `startPayment()` passing as an argument the declared function, `checkoutRegisterForResult` (line 42).
 
-```kotlin title=./java/MainActivity.kt lineNumbers=true highlight={6-31,37}
+```kotlin title=./java/MainActivity.kt lineNumbers=true highlight={6-36,42}
 class MainActivity : AppCompatActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
         // ...other
@@ -36,14 +37,19 @@ class MainActivity : AppCompatActivity() {
                     val data = result.data
                     val selectedType = data!!.getIntExtra("selected_type", -1)
                     val isGeneratedTransaction = data!!.getIntExtra("is_generated_transaction", -1)
+                    val orderId = data!!.getIntExtra("order_id", -1)
+                    val orderTypeId = data!!.getIntExtra("order_type_id", -1)
+                    val transactionId = data!!.getIntExtra("transaction_id", -1)
+                    val transactionStatusId = data!!.getIntExtra("transaction_status_id", -1)
+                    val depositId = data!!.getIntExtra("deposit_id", -1)
+                    val depositTypeId = data!!.getIntExtra("deposit_type_id", -1)
+                    val depositStatusId = data!!.getIntExtra("deposit_status_id", -1)
+                    val withdrawalId = data!!.getIntExtra("withdrawal_id", -1)
+                    val withdrawalTypeId = data!!.getIntExtra("withdrawal_type_id", -1)
+                    val withdrawalStatusId = data!!.getIntExtra("withdrawal_status_id", -1)
                     val isErrorTransaction = data!!.getIntExtra("is_error_transaction", -1)
                     val errorTransactionCode = data!!.getStringExtra("error_transaction_code")
                     val errorTransactionMessage = data!!.getStringExtra("error_transaction_message")
-                    val transactionStatusId = data!!.getIntExtra("transaction_status_id", -1)
-                    val depositStatusId = data!!.getIntExtra("deposit_status_id", -1)
-                    val depositId = data!!.getIntExtra("deposit_id", -1)
-                    val transactionId = data!!.getIntExtra("transaction_id", -1)
-                    val orderId = data!!.getIntExtra("order_id", -1)
                     val isUserCompletedTransaction = data!!
                         .getIntExtra("is_user_completed_transaction", -1)
                     val actionNotCompletedCode = data!!
@@ -71,13 +77,13 @@ class MainActivity : AppCompatActivity() {
 
 ### java - alternative 1 - declaring the checkoutRegisterForResult function
 
-For java implementation, this first alternative can be done by declaring a function that will be used as an argument later. We suggest to name it as `checkoutRegisterForResult` (lines 5 through 28).
+For java implementation, this first alternative can be done by declaring a function that will be used as an argument later. We suggest to name it as `checkoutRegisterForResult` (lines 5 through 33).
 
 Finally, inside the function `startCheckoutByUrl` (or `startCheckoutByParams`) that instantiates the chosen checkout class <Link to="/android/start-checkout-by-url">StartCheckoutByUrl</Link>
 (or <Link to="/android/start-checkout-by-params">StartCheckoutByParams</Link>)
-use the `setRegisterForResult()` method prior to the `startPayment()` passing as an argument the declared function, `checkoutRegisterForResult` (line 34).
+use the `setRegisterForResult()` method prior to the `startPayment()` passing as an argument the declared function, `checkoutRegisterForResult` (line 39).
 
-```java title=./java/MainActivity.java lineNumbers=true  highlight={5-28,34}
+```java title=./java/MainActivity.java lineNumbers=true  highlight={5-33,39}
 public class MainActivity extends AppCompatActivity {
     // ... other
 
@@ -90,15 +96,20 @@ public class MainActivity extends AppCompatActivity {
                 if (data != null) {
                     Integer selectedType = data.getIntExtra("selected_type", -1);
                     Integer isGeneratedTransaction = data.getIntExtra("is_generated_transaction", -1);
-                    Integer isErrorTransaction = data.getIntExtra("is_error_transaction", -1);
-                    Integer transactionStatusId = data.getIntExtra("transaction_status_id", -1);
-                    Integer depositStatusId = data.getIntExtra("deposit_status_id", -1);
-                    Integer depositId = data.getIntExtra("deposit_id", -1);
-                    Integer transactionId = data.getIntExtra("transaction_id", -1);
                     Integer orderId = data.getIntExtra("order_id", -1);
-                    Integer isUserCompletedTransaction = data.getIntExtra("is_user_completed_transaction", -1);
+                    Integer orderTypeId = data.getIntExtra("order_type_id", -1);
+                    Integer transactionId = data.getIntExtra("transaction_id", -1);
+                    Integer transactionStatusId = data.getIntExtra("transaction_status_id", -1);
+                    Integer depositId = data.getIntExtra("deposit_id", -1);
+                    Integer depositTypeId = data.getIntExtra("deposit_type_id", -1);
+                    Integer depositStatusId = data.getIntExtra("deposit_status_id", -1);
+                    Integer withdrawalId = data.getIntExtra("withdrawal_id", -1);
+                    Integer withdrawalTypeId = data.getIntExtra("withdrawal_type_id", -1);
+                    Integer withdrawalStatusId = data.getIntExtra("withdrawal_status_id", -1);
+                    Integer isErrorTransaction = data.getIntExtra("is_error_transaction", -1);
                     String errorTransactionCode = data.getStringExtra("error_transaction_code");
                     String errorTransactionMessage = data.getStringExtra("error_transaction_message");
+                    Integer isUserCompletedTransaction = data.getIntExtra("is_user_completed_transaction", -1);
                     String actionNotCompletedCode = data.getStringExtra("action_not_completed_code");
                     String actionNotCompletedMessage = data.getStringExtra("action_not_completed_message");
                     String errorCompletedTransactionMessage = data.getStringExtra(
@@ -133,10 +144,10 @@ Please note that the `requestCode` parameter in the `startCheckoutByUrl()` funct
 For java implementation, besides declaring the `checkoutRegisterForResult` function just like it is done in [alternative 1](#java---alternative-1---declaring-the-checkoutregisterforresult-function), we can, alternatively, override the onActivityResult native method to obtain the same goal. Just follow:<br />
 
 - Declare a variable `SDK_GATEWAY_PAYLIVRE_ACTIVITY_REQUEST_CODE` with an integer to identify paylivre's SDK Activity (line 5);
-- Declare the override function for the `onActivityResult` as presented below (lines 22 through 46);
+- Declare the override function for the `onActivityResult` as presented below (lines 22 through 51);
 - Thanks to the native method `onActivityResult`'s nature, it is not required to run any method inside the `startCheckoutByUrl` function to invoke it.
 
-```java title=./java/MainActivity.java lineNumbers=true highlight={5,22-46}
+```java title=./java/MainActivity.java lineNumbers=true highlight={5,22-51}
 public class MainActivity extends AppCompatActivity {
     // ... other
 
@@ -166,15 +177,20 @@ public class MainActivity extends AppCompatActivity {
                 if (data != null) {
                     Integer selectedType = data.getIntExtra("selected_type", -1);
                     Integer isGeneratedTransaction = data.getIntExtra("is_generated_transaction", -1);
-                    Integer isErrorTransaction = data.getIntExtra("is_error_transaction", -1);
-                    Integer transactionStatusId = data.getIntExtra("transaction_status_id", -1);
-                    Integer depositStatusId = data.getIntExtra("deposit_status_id", -1);
-                    Integer depositId = data.getIntExtra("deposit_id", -1);
-                    Integer transactionId = data.getIntExtra("transaction_id", -1);
                     Integer orderId = data.getIntExtra("order_id", -1);
-                    Integer isUserCompletedTransaction = data.getIntExtra("is_user_completed_transaction", -1);
+                    Integer orderTypeId = data.getIntExtra("order_type_id", -1);
+                    Integer transactionId = data.getIntExtra("transaction_id", -1);
+                    Integer transactionStatusId = data.getIntExtra("transaction_status_id", -1);
+                    Integer depositId = data.getIntExtra("deposit_id", -1);
+                    Integer depositTypeId = data.getIntExtra("deposit_type_id", -1);
+                    Integer depositStatusId = data.getIntExtra("deposit_status_id", -1);
+                    Integer withdrawalId = data.getIntExtra("withdrawal_id", -1);
+                    Integer withdrawalTypeId = data.getIntExtra("withdrawal_type_id", -1);
+                    Integer withdrawalStatusId = data.getIntExtra("withdrawal_status_id", -1);
+                    Integer isErrorTransaction = data.getIntExtra("is_error_transaction", -1);
                     String errorTransactionCode = data.getStringExtra("error_transaction_code");
                     String errorTransactionMessage = data.getStringExtra("error_transaction_message");
+                    Integer isUserCompletedTransaction = data.getIntExtra("is_user_completed_transaction", -1);
                     String actionNotCompletedCode = data.getStringExtra("action_not_completed_code");
                     String actionNotCompletedMessage = data.getStringExtra("action_not_completed_message");
                     String errorCompletedTransactionMessage = data.getStringExtra(
@@ -217,20 +233,16 @@ When `is_generated_transaction = 1` (true), which means that the transaction was
 | Key                   | Type | Description                                                                                                |
 | --------------------- | ---- | ---------------------------------------------------------------------------------------------------------- |
 | order_id              | Int  | Returns the order's identifier that was just registered in paylivre's system.                              |
+| order_type_id         | Int  | Returns the type ID for the order created.                                                                 |
+| order_status_id       | Int  | Returns the status ID for the order created.                                                               |
 | transaction_id        | Int  | Returns the transaction's identifier that was just registered in paylivre's system.                        |
 | transaction_status_id | Int  | Returns the status ID for the transaction. 0 = NEW. 1 = PENDING. 2 = APPROVED. 3 = CANCELLED. 4 = EXPIRED. |
 | deposit_id            | Int  | Returns the deposit's identifier that was just registered in paylivre's system.                            |
-| deposit_status_id     | Int  | Returns the status ID for the deposit created.                                                             |
-
-<!-- uncomment after refactoring the SDK Gateway: activity result (task DV-740) -->
-<!--
-| order_status_id       | Int  | Returns the status ID for the order created.                                                               |
-| order_type_id         | Int  | Returns the type ID for the order created.                                                                 |
 | deposit_type_id       | Int  | Returns the type ID for the deposit created.                                                               |
+| deposit_status_id     | Int  | Returns the status ID for the deposit created.                                                             |
 | withdrawal_id         | Int  | Returns the withdrawal's identifier that was just registered in paylivre's system.                         |
-| withdrawal_status_id  | Int  | Returns the status ID for the withdrawal created.                                                          |
 | withdrawal_type_id    | Int  | Returns the type ID for the withdrawal created.                                                            |
- -->
+| withdrawal_status_id  | Int  | Returns the status ID for the withdrawal created.                                                          |
 
 If `is_generated_transaction = 0` (false), all the parameters above will return `null`.
 
@@ -267,3 +279,9 @@ The table below presents the possibilities of user triggered errors, resulting i
 | Code  | Message                                                   | Case                                                                                                                |
 | ----- | --------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
 | RC001 | "User did not insert proof of deposit type bank transfer" | When the user did not insert a valid image file (format ou size), any other error uploading the transaction receipt |
+
+### Activity result - return exemple
+
+To better ilustrate what was presented above, the image below is an exemple of a successfully placed withdrawal transaction, and the `Activity result` data returned:
+
+<ActivityResultImage />
