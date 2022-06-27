@@ -29,6 +29,8 @@
       link: "/extras/logo-image"
     - label: "Activity result"
       link: "/extras/activity-result"
+    - label: "Customizing"
+      link: "/extras/customizing"
 - label: More
   items:
     - label: Paylivre

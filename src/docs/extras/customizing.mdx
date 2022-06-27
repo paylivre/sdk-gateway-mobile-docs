@@ -1,0 +1,56 @@
+---
+title: Customizing
+description: Learn more about how to customize colors and strings.
+---
+
+import { Link } from "gatsby";
+import GenericCustomizingImage from "../../assets/GenericCustomizingImage.js";
+
+It is possible to customize our SDK's UI to your organization's needs/patterns, regarding color and strings.
+
+If no Customizing options is provided, Paylivre's SDK Gateway will, by default, present Paylivre's theme colors, which are shown in all other sections of this docs.
+
+## Implementation
+
+To implement an override to our default SDK theme colors, all options must be passed through the `colors.xml` or `string.xml` files, as presented below: <br/>
+
+```xml title=./res/values/colors.xml lineNumbers=true
+<!-- To personalize Paylivre SDK -->
+<color name="status_bar_color_paylivre_sdk">@color/light_bg</color> <!-- Status Bar Color -->
+<color name="primary_color_paylivre_sdk">@color/primary</color>
+<color name="primary_dark_color_paylivre_sdk">#0031BF</color> <!-- Ripple color Buttons-->
+<color name="secondary_color_paylivre_sdk">@color/secondary</color>
+
+```
+
+```xml title=./res/values/strings.xml lineNumbers=true
+<!-- To personalize StatusBar Paylivre SDK -->
+<string name="theme_status_bar_sdk_paylivre" translatable="false">Dark</string>
+
+```
+
+## Examples
+
+As visual examples, we present the following theme color combinations:
+
+- `blue` colored theme:
+
+  <GenericCustomizingImage type="example_blue" />
+  <div style="display: inline; margin: 0 10px"></div>
+  <GenericCustomizingImage type="example_blue_with_keyboard" />
+  <br />
+  <br />
+
+- `green` colored theme:
+
+  <GenericCustomizingImage type="example_green" />
+  <div style="display: inline; margin: 0 10px"></div>
+  <GenericCustomizingImage type="example_green_with_keyboard" />
+  <br />
+  <br />
+
+- `red` colored theme:
+
+  <GenericCustomizingImage type="example_red" />
+  <div style="display: inline; margin: 0 10px"></div>
+  <GenericCustomizingImage type="example_red_with_keyboard" />
