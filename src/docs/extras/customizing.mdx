@@ -6,13 +6,17 @@ description: Learn more about how to customize colors and strings.
 import { Link } from "gatsby";
 import GenericCustomizingImage from "../../assets/GenericCustomizingImage.js";
 
-It is possible to customize our SDK's UI to your organization's needs/patterns, regarding color and strings.
+It is possible to customize our SDK's UI to your organization's needs/patterns, regarding colors.
 
 If no Customizing options is provided, Paylivre's SDK Gateway will, by default, present Paylivre's theme colors, which are shown in all other sections of this docs.
 
 ## Implementation
 
-To implement an override to our default SDK theme colors, all options must be passed through the `colors.xml` or `string.xml` files, as presented below: <br/>
+To implement an override to our default SDK theme colors, all options must be passed through the `colors.xml` or `string.xml` files.
+
+### Colors
+
+In the `colors.xml` file, you can personalize the status bar, the primary and primary dark colors and also the secondary color, as follows:
 
 ```xml title=./res/values/colors.xml lineNumbers=true
 <!-- To personalize Paylivre SDK -->
@@ -23,9 +27,15 @@ To implement an override to our default SDK theme colors, all options must be pa
 
 ```
 
+### Strings
+
+Regarding the `strings.xml`, you can personalize the text and icons colors. The only two parameters that can be passed are: `Dark` or `Light`, being `Dark` the default value.
+
+Depending on the color chosen for the status bar (previous section), you might want to change the string color here to get a better contrast between texts/icons and the status bar itself.
+
 ```xml title=./res/values/strings.xml lineNumbers=true
 <!-- To personalize StatusBar Paylivre SDK -->
-<string name="theme_status_bar_sdk_paylivre" translatable="false">Dark</string>
+<string name="theme_status_bar_sdk_paylivre" translatable="false">Dark</string>  <!-- either 'Dark' or 'Light' -->
 
 ```
 
@@ -33,7 +43,7 @@ To implement an override to our default SDK theme colors, all options must be pa
 
 As visual examples, we present the following theme color combinations:
 
-- `blue` colored theme:
+- `blue` colored theme (default):
 
   <GenericCustomizingImage type="example_blue" />
   <div style="display: inline; margin: 0 10px"></div>

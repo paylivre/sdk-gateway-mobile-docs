@@ -37,5 +37,5 @@
       link: https://www.paylivre.com/
     - label: "Paylivre twitter"
       link: https://twitter.com/Paylivre
-    - label: "Project's GitHub"
-      link: https://github.com/paylivre/sdk-gateway-mobile-docs
+    - label: "SDK Gateway Android repo"
+      link: https://github.com/paylivre/sdk-gateway-android
